@@ -4,26 +4,26 @@ import sampleTravelersData from "../src/data/sample-travelers";
 import Traveler from "../src/Traveler";
 
 describe("Traveler Repository", () => {
-  let travelerRepository;
+  let travelerRepository1;
   
   beforeEach(() => {
-    travelerRepository = new TravelerRepository(sampleTravelersData);
+    travelerRepository1 = new TravelerRepository(sampleTravelersData);
   });
   it("Should be a function", () => {
     expect(TravelerRepository).to.be.a("function");
   });
   it("Should instantiate a new TravelerRepository", () => {
-    expect(travelerRepository).to.be.an.instanceof(TravelerRepository);
+    expect(travelerRepository1).to.be.an.instanceof(TravelerRepository);
   });
   it("Should store all traveler data", () => {
-    expect(travelerRepository.allTravelers).to.eql(sampleTravelersData);
+    expect(travelerRepository1.allTravelers).to.eql(sampleTravelersData);
   });
   it("Should find a traveler based on their id", () => {
-    expect(travelerRepository.findTraveler(1)).to.equal(sampleTravelersData[0]);
+    expect(travelerRepository1.findTraveler(1)).to.equal(sampleTravelersData[0]);
   });
   it("Should update currentTraveler property", () => {
-    travelerRepository.findTraveler(1);
-    expect(travelerRepository.currentTraveler).to.deep.equal(sampleTravelersData[0]);
-    expect(travelerRepository.currentTraveler).to.be.an.instanceOf(Traveler);
+    travelerRepository1.findTraveler(1);
+    expect(travelerRepository1.currentTraveler).to.deep.equal(sampleTravelersData[0]);
+    expect(travelerRepository1.currentTraveler).to.be.an.instanceOf(Traveler);
   });
 });
