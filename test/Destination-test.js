@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import Destination from "../src/Destination"
+import Destination from "../src/Destination";
 
 describe("Destination", () => {
   let destination1;
@@ -23,12 +23,11 @@ describe("Destination", () => {
     expect(destination1).to.be.an.instanceof(Destination);
   });
   it("Should hold destination data", () => {
-    console.log("here", destination1)
     expect(destination1.id).to.equal(1);
     expect(destination1.destination).to.equal("Lima, Peru");
     expect(destination1.estimatedLodgingCostPerDay).to.equal(70);
     expect(destination1.estimatedFlightCostPerPerson).to.equal(400);
     expect(destination1.image).to.equal("https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80");
-    expect(destination1.alt).to.equal("overview of city buildings with a clear sky")
-  })
+    expect(destination1.alt).to.equal("overview of city buildings with a clear sky");
+  });
 });
