@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import Trip from "../src/Trip";
 import sampleDestinationData from "../src/data/sample-destinations";
-import DestinationRepository from "../src/DestinationRepository"
+import DestinationRepository from "../src/DestinationRepository";
 
 describe("Trip", () => {
   let trip21;
@@ -37,8 +37,8 @@ describe("Trip", () => {
     expect(trip21.suggestedActivities).to.eql([]);
   });
   it("Should estimate cost of trip", () => {
-    let destinationRepository1 = new DestinationRepository(sampleDestinationData)
+    let destinationRepository1 = new DestinationRepository(sampleDestinationData);
     expect(trip21.estimateTripCost(destinationRepository1.filterDestinationById(trip21.destinationID)
-    )).to.equal(2277)
-  })
+    )).to.equal(2277);
+  });
 });
