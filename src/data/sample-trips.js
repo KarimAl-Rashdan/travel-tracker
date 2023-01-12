@@ -224,6 +224,25 @@ const tripData = [
     "duration": 17,
     "status": "pending",
     "suggestedActivities": []
+  },
+  {
+    "id": 185,
+    "userID": 17,
+    "destinationID": 35,
+    "travelers": 4,
+    "date": "2019/09/02",
+    "duration": 16,
+    "status": "approved",
+    "suggestedActivities": []
+  }, {
+    "id": 186,
+    "userID": 17,
+    "destinationID": 44,
+    "travelers": 6,
+    "date": "2020/02/08",
+    "duration": 6,
+    "status": "approved",
+    "suggestedActivities": []
   }
   ];
   

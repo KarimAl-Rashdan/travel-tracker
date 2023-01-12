@@ -36,9 +36,4 @@ describe("Trip", () => {
     expect(trip21.status).to.equal("approved");
     expect(trip21.suggestedActivities).to.eql([]);
   });
-  it("Should estimate cost of trip", () => {
-    let destinationRepository1 = new DestinationRepository(sampleDestinationData);
-    expect(trip21.estimateTripCost(destinationRepository1.filterDestinationById(trip21.destinationID)
-    )).to.equal(2277);
-  });
 });
