@@ -1,6 +1,5 @@
 
 import DestinationRepository from "./DestinationRepository"
-// import Destination from "./Destination"
 class TripRepository {
   constructor(allTripData) {
     this.allTrips = allTripData
@@ -39,7 +38,7 @@ class TripRepository {
       this.specificFutureTrips = futureTrips;
       return futureTrips;
   }
-  findAnnualTrips() { //reminder to change date for scripts
+  findAnnualTrips() { 
     const dateMin = new Date("2019/05/31")
     const dateMax = new Date("2020/06/01")
     const annualTrips = this.specificApprovedTrips.filter(trip => new Date(trip.date) > dateMin && new Date(trip.date)<= dateMax)
@@ -48,17 +47,36 @@ class TripRepository {
   }
   filterTravelersDestinations(allDestinations) {
     const destinationRepo = new DestinationRepository(allDestinations)
-    const annualDestinations = this.specificAnnualTrips.forEach(trip => this.allDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
-    // console.log(this.allDestinations)
+    this.specificAnnualTrips.forEach(trip => this.allDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
     return this.allDestinations
   }
   calculateAnnualTripCost(destinations) {
-    const initialCostTravelers = this.travelers * destination.estimatedFlightCostPerPerson;
-    const initialCostDuration = this.duration * destination.estimatedLodgingCostPerDay;
-    const initialTotal = initialCostDuration + initialCostTravelers;
-    const fee = initialTotal * .1;
-    const totalTripCost = initialTotal + fee;
-    return totalTripCost;
+    if(destinations.length >= 1) {
+      const initialCost = this.specificAnnualTrips.reduce((acc, trip) => {
+        const initialCostTravelers = destinations.forEach(destination => {
+          if(destination.id === trip.destinationID) {
+            const flightNum = destination.estimatedFlightCostPerPerson * trip.travelers
+            const durationNum = destination.estimatedLodgingCostPerDay * trip.duration
+            const totalInitial = flightNum + durationNum
+            const fee = totalInitial * .1
+            acc += (totalInitial + fee)
+          }   
+        })
+        return acc
+      }, 0)
+      return initialCost;
+    } else {
+      return `You have spent $0 on trips this year!`
+    }
+  }
+  calculateOneTripCost(trip, allDestinations) {
+    const destRepo = new DestinationRepository(allDestinations)
+    const destination = destRepo.filterDestinationById(trip.destinationID)
+    const travelerCost = destination.estimatedFlightCostPerPerson * trip.travelers
+    const durationCost = destination.estimatedLodgingCostPerDay * trip.duration
+    const initialCost = travelerCost + durationCost
+    const finalCost = (initialCost * .1) + initialCost
+    return finalCost
   }
 }
 
