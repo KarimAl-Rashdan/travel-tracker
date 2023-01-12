@@ -1,7 +1,14 @@
-import Trip from "../Trip";
-
 const tripData = [
   {
+    "id": 66,
+    "userID": 17,
+    "destinationID": 31,
+    "travelers": 6,
+    "date": "2020/12/19",
+    "duration": 10,
+    "status": "approved",
+    "suggestedActivities": []
+  }, {
     "id": 1,
     "userID": 44,
     "destinationID": 49,
@@ -10,8 +17,7 @@ const tripData = [
     "duration": 8,
     "status": "approved",
     "suggestedActivities": []
-  },
-  {
+  }, {
     "id": 2,
     "userID": 35,
     "destinationID": 25,
@@ -30,6 +36,15 @@ const tripData = [
     "status": "approved",
     "suggestedActivities": []
   }, {
+   "id": 172,
+   "userID": 17,
+   "destinationID": 38,
+   "travelers": 5,
+   "date": "2020/06/17",
+   "duration": 13,
+   "status": "approved",
+   "suggestedActivities": []
+ }, {
     "id": 4,
     "userID": 43,
     "destinationID": 14,
@@ -72,6 +87,15 @@ const tripData = [
     "travelers": 6,
     "date": "2022/02/07",
     "duration": 4,
+    "status": "approved",
+    "suggestedActivities": []
+  }, {
+    "id": 184,
+    "userID": 17,
+    "destinationID": 11,
+    "travelers": 1,
+    "date": "2019/12/27",
+    "duration": 7,
     "status": "approved",
     "suggestedActivities": []
   }, {
@@ -147,6 +171,15 @@ const tripData = [
     "status": "approved",
     "suggestedActivities": []
   }, {
+    "id": 73,
+    "userID": 17,
+    "destinationID": 14,
+    "travelers": 2,
+    "date": "2020/04/26",
+    "duration": 18,
+    "status": "approved",
+    "suggestedActivities": []
+  }, {
     "id": 17,
     "userID": 28,
     "destinationID": 31,
@@ -183,51 +216,15 @@ const tripData = [
     "status": "approved",
     "suggestedActivities": []
   }, {
-    "id": 21,
-    "userID": 12,
-    "destinationID": 10,
-    "travelers": 1,
-    "date": "2022/01/28",
-    "duration": 18,
-    "status": "approved",
-    "suggestedActivities": []
-  }, {
-    "id": 22,
-    "userID": 22,
-    "destinationID": 9,
-    "travelers": 4,
-    "date": "2022/05/01",
-    "duration": 19,
-    "status": "approved",
-    "suggestedActivities": []
-  }, {
-    "id": 23,
-    "userID": 14,
-    "destinationID": 24,
-    "travelers": 6,
-    "date": "2022/01/02",
-    "duration": 18,
-    "status": "approved",
-    "suggestedActivities": []
-  }, {
-    "id": 24,
-    "userID": 46,
-    "destinationID": 26,
-    "travelers": 5,
-    "date": "2019/11/15",
-    "duration": 7,
-    "status": "approved",
-    "suggestedActivities": []
-  }, {
-    "id": 25,
-    "userID": 18,
-    "destinationID": 12,
-    "travelers": 6,
-    "date": "2019/10/26",
-    "duration": 9,
+    "id": 60,
+    "userID": 17,
+    "destinationID": 45,
+    "travelers": 2,
+    "date": "2020/06/23",
+    "duration": 17,
     "status": "approved",
     "suggestedActivities": []
   }
-];
-
-export default tripData;
+  ];
+  
+  export default tripData;
