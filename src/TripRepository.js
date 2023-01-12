@@ -1,6 +1,6 @@
 
 import DestinationRepository from "./DestinationRepository"
-import Destination from "./Destination"
+// import Destination from "./Destination"
 class TripRepository {
   constructor(allTripData) {
     this.allTrips = allTripData
