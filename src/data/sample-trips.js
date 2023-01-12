@@ -177,7 +177,7 @@ const tripData = [
     "travelers": 2,
     "date": "2020/04/26",
     "duration": 18,
-    "status": "approved",
+    "status": "pending",
     "suggestedActivities": []
   }, {
     "id": 17,
@@ -222,7 +222,7 @@ const tripData = [
     "travelers": 2,
     "date": "2020/06/23",
     "duration": 17,
-    "status": "approved",
+    "status": "pending",
     "suggestedActivities": []
   }
   ];
