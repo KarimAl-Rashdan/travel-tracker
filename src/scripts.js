@@ -14,5 +14,10 @@ import DestinationRepository from "./DestinationRepository"
 import Trip from "./Trip"
 import TripRepository from "./TripRepository"
 
+const travelerAPI = "http://localhost:3001/api/v1/travelers"
+const destinationAPI = "http://localhost:3001/api/v1/destinations"
+const tripAPI = "http://localhost:3001/api/v1/trips"
+
+
 
 console.log('This is the JavaScript entry file - your code begins here.');
