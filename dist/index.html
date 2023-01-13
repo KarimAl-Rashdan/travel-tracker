@@ -7,14 +7,24 @@
   <title>Travel Tracker</title>
 </head>
 <body class="background-container">
-  <nav class="nav-bar">
-    <img src="./images/turing-logo.png" alt="turing logo">
-    <h1>Welcome TravelerName!</h1>
-    <button class="log-out">Log Out</button>
-  </nav>
+  <section class="login-container hidden">
+    <form class="log-in-form">
+      <h1 class="log-in-title">Sign In</h1>
+      <label for="username">Username</label>
+      <input class ="log-in-input" id="username" type="text" name="username" value="" required>
+      <label for="password">Password</label>
+      <input class ="log-in-input" id="password" type="password" name="password" value="" required>
+      <button class="log-in-btn" type="button" name="button" id="logInBtn">Log In</button>
+    </form>
+  </section>
   <main class="main-container">
+    <nav class="nav-bar">
+      <img src="./images/turing-logo.png" alt="turing logo">
+      <h1>Welcome TravelerName!</h1>
+      <button class="log-out">Log Out</button>
+    </nav>
     <fieldset class="trips-categories">
-      <legend>Filter Trips</legend>
+      <legend class="hidden">Filter Trips</legend>
       <label for="active-input">Active</label>
       <input type="radio" id="active-input" name="trip-status" tabindex="0" aria-checked="false">
       <label for="pending-input">Pending</label>
@@ -23,26 +33,44 @@
       <input type="radio" id="Past-input" name="trip-status" tabindex="0" aria-checked="false">
     </fieldset>
     <div class="dashBoard-container">
-      <form>
+      <form class="book-trip">
         <h2>Book a New Trip!</h2>
-        <label class="hidden" for="input-date">Calendar Input</label>
-        <input class="input-date hidden" id="input-date" type="date" placeholder="Date">
-        <label for="duration-input" class="hidden">Duration Input</label>
+        <label class="" for="input-date">Calendar Input</label>
+        <input class="input-date" id="input-date" type="date" placeholder="Date">
+        <label for="duration-input" class="">Duration Input</label>
         <input class="hours-Slept" id="duration-input" type="number" placeholder="1 Day" min=1 max=31 step=1>
-        <label for="travelers-input" class="hidden">Travelers Input</label>
+        <label for="travelers-input" class="">Travelers Input</label>
         <input class="sleep-Quality" id="travelers-input" type="number" placeholder="1 traveler" min=1 max=10 step=1>
-        <label for="destinations-input" class="hidden">Destinations Input</label>
+        <label for="destinations-input" class="">Destinations Input</label>
         <input class="sleep-Quality" id="destinations-input" list="available-destinations" placeholder="Lima, Peru" min=1 max=10 step=1>
         <datalist id="available-destinations">
         </datalist>
         <button class="submit-booking" id="submit-booking">Book Trip!</button>
         <p class="estimated-cost hidden"></p>
       </form>
-      <section>
-        <h3 class="active-trips">Active Trips</h3>
-        <section class="all-trips hidden"></section>
+      <section class="trip-view">
+        <header>
+          <h3 class="all-trips">All Trips</h3>
+          <h4 class="total-spent">Total AAmount Spent on Approved trips:</h4>
+        </header>
+        <section class="all-status-trips">
+          <section class="trip" id="trip">
+            <img class="destination-img">
+            <article class="trip-details">
+              <h5 class="destination-name">Lima,Peru</h5>
+              <p class="trip-status">Status: Active</p>
+              <p class="cost-lodging">Lodging Cost:</p>
+              <p class="cost-flight">Flight Cost:</p>
+              <p class="agent-fee">Agent fee:</p>
+              <p class="total-cost">Total Cost:</p>
+            </article>
+          </section>
+        </section>
+        <h3 class="active-trips hidden">Active Trips</h3>
         <section class="active hidden"></section>
+        <h3 class="pending-trips hidden">Pending Trips</h3>
         <section class="pending hidden"></section>
+        <h3 class="past-trips hidden">Past Trips</h3>
         <section class="past hidden"></section>
       </section>
     </div>

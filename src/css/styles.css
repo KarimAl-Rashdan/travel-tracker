@@ -1,3 +1,81 @@
 body {
   background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 }
+.log-in-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height:50vh;
+  justify-content: center;
+  border:1px solid white;
+}
+nav {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  justify-content: space-between;
+  align-items: center;
+  border:1px solid blue;
+}
+main {
+  display: flex;
+  flex-direction: column;
+}
+.trips-categories {
+  display: flex;
+  flex-direction: row;
+  border:1px solid red;
+  align-items: baseline;
+}
+.dashBoard-container {
+  display: flex;
+  flex-direction: row;
+  height: 78vh;
+  border: 1px solid yellow;
+  width:100%;
+}
+.trip-view {
+  width:80%;
+  border:1px solid black;
+}
+.book-trip {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  border: 1px solid green;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.all-status-trips,
+.active,
+.pending,
+.past {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height:70vh;
+  padding:15px;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+}
+img {
+  width:10%;
+  height:105px;
+}
+.trip {
+  width: 20%;
+  height: 45vh;
+  border:1px solid  white;
+}
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.hidden {
+  display: none;
+}
