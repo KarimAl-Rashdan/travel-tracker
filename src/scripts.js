@@ -37,31 +37,41 @@ function getData() {
       getRandomTraveler(allTravelerData);
     })
     .catch((error) => console.log(error));
-}
-
-//Query Selector Section
-const welcomeSection = document.getElementById("welcome-traveler");
-
-//Add Event Listener Section
-window.addEventListener("load", getData);
-
-//Functions
-function createClassInstance(dataSet1, dataSet2, dataSet3) {
-  allTravelerData = dataSet1.map((traveler) => new Traveler(traveler));
-  travelerRepository = new TravelerRepository(allTravelerData);
-  allDestinationData = dataSet2.map((destination) => new Destination(destination));
-  destinationRepository = new DestinationRepository(allDestinationData);
-  allTripData = dataSet3.map((trip) => new Trip(trip));
-  tripRepository = new TripRepository(allTripData);
-}
-
-function getRandomTraveler(travelerData) {
-  const randomID = Math.floor(Math.random() * travelerData.length);
-  currentTraveler = travelerData[randomID];
-  currentTravelerID = currentTraveler.id;
-  welcomeTraveler();
-}
+  }
+  
+  //Query Selector Section
+  const welcomeSection = document.getElementById("welcome-traveler");
+  
+  //Add Event Listener Section
+  window.addEventListener("load", getData);
+  
+  //Functions
+  function createClassInstance(dataSet1, dataSet2, dataSet3) {
+    allTravelerData = dataSet1.map((traveler) => new Traveler(traveler));
+    travelerRepository = new TravelerRepository(allTravelerData);
+    allDestinationData = dataSet2.map((destination) => new Destination(destination));
+    destinationRepository = new DestinationRepository(allDestinationData);
+    allTripData = dataSet3.map((trip) => new Trip(trip));
+    tripRepository = new TripRepository(allTripData);
+  }
+  
+  function getRandomTraveler(travelerData) {
+    const randomID = Math.floor(Math.random() * travelerData.length);
+    currentTraveler = travelerData[randomID];
+    currentTravelerID = currentTraveler.id;
+    welcomeTraveler();
+    getTrips(currentTravelerID);
+  }
 
 function welcomeTraveler() {
   welcomeSection.innerText = `Welcome ${currentTraveler.name}!`;
 }
+
+function getTrips(id) {
+console.log("trips", tripRepository)
+ let currentTravelerTrips = tripRepository.filterTrips(id)
+ console.log("currentTrips", currentTravelerTrips)
+}
+
+
+// function getDestinations()
