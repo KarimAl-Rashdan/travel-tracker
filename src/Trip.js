@@ -9,14 +9,6 @@ class Trip {
     this.status = tripData.status;
     this.suggestedActivities = tripData.suggestedActivities;
   }
-  estimateTripCost(destination) {
-    const initialCostTravelers = this.travelers * destination.estimatedFlightCostPerPerson
-    const initialCostDuration = this.duration * destination.estimatedLodgingCostPerDay
-    const initialTotal = initialCostDuration + initialCostTravelers
-    const fee = initialTotal * .1
-    const totalTripCost = initialTotal + fee
-    return totalTripCost
-  }
 }
 
 export default Trip;

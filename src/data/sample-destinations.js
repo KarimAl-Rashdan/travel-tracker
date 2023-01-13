@@ -76,6 +76,27 @@ const destinationData = [
   "estimatedLodgingCostPerDay": 90,
   "estimatedFlightCostPerPerson": 450,
   "image": "https://images.unsplash.com/photo-1535776142635-8fa180c46af7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2756&q=80",
+}, {
+  "id": 11,
+  "destination": "Mikonos, Greece",
+  "estimatedLodgingCostPerDay": 140,
+  "estimatedFlightCostPerPerson": 1000,
+  "image": "https://images.unsplash.com/photo-1573783309724-e44b859f5a85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80",
+  "alt": "cityscape along the water during the day"
+},{
+  "id": 35,
+  "destination": "Anchorage, Alaska",
+  "estimatedLodgingCostPerDay": 200,
+  "estimatedFlightCostPerPerson": 100,
+  "image": "https://images.unsplash.com/photo-1539545547102-90ae2c140089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+  "alt": "man riding on kayak surrounded by mountains"
+},{
+  "id": 44,
+  "destination": "Caye Caulker, Belize",
+  "estimatedLodgingCostPerDay": 450,
+  "estimatedFlightCostPerPerson": 80,
+  "image": "https://images.unsplash.com/photo-1544525977-0a3bca9e560d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+  "alt": "boat on dock during daytime"
 }
 ];
 
