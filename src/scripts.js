@@ -46,7 +46,6 @@ function getData() {
 const welcomeSection = document.getElementById("welcome-traveler")
 
 window.addEventListener("load", getData)
-console.log('This is the JavaScript entry file - your code begins here.');
 
 
 function createClassInstance(dataSet1, dataSet2, dataSet3) {
@@ -56,21 +55,15 @@ allDestinationData = dataSet2.map((destination) => new Destination(destination))
 destinationRepository = new DestinationRepository(allDestinationData)
 allTripData = dataSet3.map((trip) => new Trip(trip))
 tripRepository = new TripRepository(allTripData)
-  console.log("travelers", travelerRepository)
-  console.log("destinations", destinationRepository)
-  console.log("trips", tripRepository)
 }
 
 function getRandomTraveler(travelerData) {
   const randomID = Math.floor(Math.random() * travelerData.length)
   currentTraveler = allTravelerData[randomID]
   currentTravelerID = currentTraveler.id
-  console.log("currentTraveler", currentTraveler)
-  console.log("id", currentTravelerID)
   welcomeTraveler()
 }
 
 function welcomeTraveler() {
-  console.log("here", currentTraveler.name)
   welcomeSection.innerText = `Welcome ${currentTraveler.name}!`
 }
