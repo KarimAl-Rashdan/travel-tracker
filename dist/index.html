@@ -1,13 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Travel Tracker</title>
 </head>
-<body>
-  <img src="./images/turing-logo.png" alt="turing logo">
+<body class="background-container">
+  <nav class="nav-bar">
+    <img src="./images/turing-logo.png" alt="turing logo">
+    <h1>Welcome TravelerName!</h1>
+    <button class="log-out">Log Out</button>
+  </nav>
+  <main class="main-container">
+    <fieldset class="trips-categories">
+      <legend>Filter Trips</legend>
+      <label for="active-input">Active</label>
+      <input type="radio" id="active-input" name="trip-status" tabindex="0" aria-checked="false">
+      <label for="pending-input">Pending</label>
+      <input type="radio" id="pending-input" name="trip-status" tabindex="0" aria-checked="false">
+      <label for="past-input">Past</label>
+      <input type="radio" id="Past-input" name="trip-status" tabindex="0" aria-checked="false">
+    </fieldset>
+    <div class="dashBoard-container">
+      <form>
+        <h2>Book a New Trip!</h2>
+        <label class="hidden" for="input-date">Calendar Input</label>
+        <input class="input-date hidden" id="input-date" type="date" placeholder="Date">
+        <label for="duration-input" class="hidden">Duration Input</label>
+        <input class="hours-Slept" id="duration-input" type="number" placeholder="1 Day" min=1 max=31 step=1>
+        <label for="travelers-input" class="hidden">Travelers Input</label>
+        <input class="sleep-Quality" id="travelers-input" type="number" placeholder="1 traveler" min=1 max=10 step=1>
+        <label for="destinations-input" class="hidden">Destinations Input</label>
+        <input class="sleep-Quality" id="destinations-input" list="available-destinations" placeholder="Lima, Peru" min=1 max=10 step=1>
+        <datalist id="available-destinations">
+        </datalist>
+        <button class="submit-booking" id="submit-booking">Book Trip!</button>
+        <p class="estimated-cost hidden"></p>
+      </form>
+      <section>
+        <h3 class="active-trips">Active Trips</h3>
+        <section class="all-trips hidden"></section>
+        <section class="active hidden"></section>
+        <section class="pending hidden"></section>
+        <section class="past hidden"></section>
+      </section>
+    </div>
+  </main>
   
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
