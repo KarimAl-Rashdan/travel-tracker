@@ -258,7 +258,52 @@ describe("Trip Repository", () => {
     tripRepository1.filterApprovedTrips();
     expect(tripRepository1.findAnnualTrips()).to.eql(traveler17AnnualTrips);
   })
-  it("Should return total spent this year", () => {
+  it("Should return destinations for all approved trips", () => {
+    const tripsDestinations = [
+      {
+        "id": 31,
+        "destination": "Colombo, Sri Lanka",
+        "estimatedLodgingCostPerDay": 55,
+        "estimatedFlightCostPerPerson": 1300,
+        "image": "https://images.unsplash.com/photo-1578159802020-13ec49d669df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+        "alt": "people walking inside flea market"
+      },{
+        "id": 38,
+        "destination": "Helsinki, Finland",
+        "estimatedLodgingCostPerDay": 950,
+        "estimatedFlightCostPerPerson": 100,
+        "image": "https://images.unsplash.com/photo-1517128581046-8ee7e6fa3cb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1484&q=80",
+        "alt": "two white motorboats on dock near brown trees at daytime"
+      },{
+        "id": 11,
+        "destination": "Mikonos, Greece",
+        "estimatedLodgingCostPerDay": 140,
+        "estimatedFlightCostPerPerson": 1000,
+        "image": "https://images.unsplash.com/photo-1573783309724-e44b859f5a85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80",
+        "alt": "cityscape along the water during the day"
+      },{
+        "id": 35,
+        "destination": "Anchorage, Alaska",
+        "estimatedLodgingCostPerDay": 200,
+        "estimatedFlightCostPerPerson": 100,
+        "image": "https://images.unsplash.com/photo-1539545547102-90ae2c140089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+        "alt": "man riding on kayak surrounded by mountains"
+      },{
+        "id": 44,
+        "destination": "Caye Caulker, Belize",
+        "estimatedLodgingCostPerDay": 450,
+        "estimatedFlightCostPerPerson": 80,
+        "image": "https://images.unsplash.com/photo-1544525977-0a3bca9e560d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "alt": "boat on dock during daytime"
+      }
+    ]
+    tripRepository1.filterTrips(17);
+    // tripRepository1.filterApprovedTrips()
+    // console.log(tripRepository1.specificApprovedTrips)
+    tripRepository1.filterApprovedTrips()
+    expect(tripRepository1.filterTravelersAllTripsDestinations(sampleDestinationData)).to.eql(tripsDestinations)
+  })
+  it("Should return destinations for trips approved this year", () => {
     tripRepository1.filterTrips(17);
     tripRepository1.filterApprovedTrips();
     tripRepository1.findAnnualTrips();

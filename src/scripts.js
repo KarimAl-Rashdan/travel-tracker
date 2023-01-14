@@ -63,6 +63,7 @@ function getData() {
     currentTravelerID = currentTraveler.id;
     welcomeTraveler();
     getTrips(currentTravelerID);
+    displayAllTrips()
   }
 
 function welcomeTraveler() {
@@ -77,8 +78,9 @@ function getTrips(id) {
 }
 
 function displayAllTrips() {
-  tripRepository.filterTravelersDestinations(allDestinationData)
-  tripRepository.specificTripsToUser
+  const destinations1 = tripRepository.filterTravelersAllTripsDestinations(allDestinationData)
+  console.log("this is destinations", destinations1)
+
   // allTripsSection.innerHTML += 
 }
 // function getDestinations()

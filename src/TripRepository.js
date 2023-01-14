@@ -9,7 +9,7 @@ class TripRepository {
     this.specificPastTrips = null;
     this.specificFutureTrips = null;
     this.specificAnnualTrips = null;
-    this.allDestinations = [];
+    this.allAnnualDestinations = [];
   }
   filterTrips(id) {
     const specificTravelerTrips = this.allTrips.filter(trip => trip.userID === id);
@@ -24,6 +24,7 @@ class TripRepository {
   filterApprovedTrips() {
     const approvedTrips = this.specificTripsToUser.filter(trip => trip.status === "approved")
     this.specificApprovedTrips = approvedTrips
+    // console.log(approvedTrips)
     return approvedTrips
   }
   filterPastTrips(date) {
@@ -45,10 +46,27 @@ class TripRepository {
     this.specificAnnualTrips = annualTrips
     return annualTrips
   }
-
+  filterTravelersAllActiveTripsDestinations(allDestinations) {
+    const destinationRepo = new DestinationRepository(allDestinations)
+    this.specificApprovedTrips.forEach(trip => 
+destinationRepo.approvedDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
+    return destinationRepo.approvedDestinations
+  }
+  filterTravelersAllPendingTripsDestinations(allDestinations) {
+    const destinationRepo = new DestinationRepository(allDestinations)
+    this.specificPendingTrips.forEach(trip => 
+destinationRepo.pendingDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
+    return destinationRepo.pendingDestinations
+  }
+  filterTravelersAllPastTripsDestinations(allDestinations) {
+    const destinationRepo = new DestinationRepository(allDestinations)
+    this.specificPastTrips.forEach(trip => 
+destinationRepo.pastDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
+    return destinationRepo.pastDestinations
+  }
   filterTravelersAnnualTripsDestinations(allDestinations) {
     const destinationRepo = new DestinationRepository(allDestinations)
-    this.specificAnnualTrips.forEach(trip => this.allDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
+    this.specificAnnualTrips.forEach(trip => this.allAnnualDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
     return this.allDestinations
   }
   calculateAnnualTripCost(destinations) {

@@ -3,6 +3,9 @@ class DestinationRepository {
   constructor(allDestinationData) {
     this.allDestinations = allDestinationData;
     this.currentDestinations;
+    this.approvedDestinations= [];
+    this.pendingDestinations=[];
+    this.pastDestinations=[];
   }
   filterDestinationById(id) {
     const destination = this.allDestinations.filter(destination => destination.id === id);

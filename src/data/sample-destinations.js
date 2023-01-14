@@ -83,14 +83,28 @@ const destinationData = [
   "estimatedFlightCostPerPerson": 1000,
   "image": "https://images.unsplash.com/photo-1573783309724-e44b859f5a85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80",
   "alt": "cityscape along the water during the day"
-},{
+}, {
+  "id": 31,
+  "destination": "Colombo, Sri Lanka",
+  "estimatedLodgingCostPerDay": 55,
+  "estimatedFlightCostPerPerson": 1300,
+  "image": "https://images.unsplash.com/photo-1578159802020-13ec49d669df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+  "alt": "people walking inside flea market"
+}, {
   "id": 35,
   "destination": "Anchorage, Alaska",
   "estimatedLodgingCostPerDay": 200,
   "estimatedFlightCostPerPerson": 100,
   "image": "https://images.unsplash.com/photo-1539545547102-90ae2c140089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
   "alt": "man riding on kayak surrounded by mountains"
-},{
+}, {
+  "id": 38,
+  "destination": "Helsinki, Finland",
+  "estimatedLodgingCostPerDay": 950,
+    "estimatedFlightCostPerPerson": 100,
+  "image": "https://images.unsplash.com/photo-1517128581046-8ee7e6fa3cb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1484&q=80",
+  "alt": "two white motorboats on dock near brown trees at daytime"
+}, {
   "id": 44,
   "destination": "Caye Caulker, Belize",
   "estimatedLodgingCostPerDay": 450,
