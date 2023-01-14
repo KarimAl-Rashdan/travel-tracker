@@ -10,6 +10,7 @@ class TripRepository {
     this.specificFutureTrips = null;
     this.specificAnnualTrips = null;
     this.allAnnualDestinations = [];
+    this.estimateFee= null
   }
   filterTrips(id) {
     const specificTravelerTrips = this.allTrips.filter(trip => trip.userID === id);
@@ -45,6 +46,11 @@ class TripRepository {
     const annualTrips = this.specificApprovedTrips.filter(trip => new Date(trip.date) > dateMin && new Date(trip.date)<= dateMax)
     this.specificAnnualTrips = annualTrips
     return annualTrips
+  }
+  filterTravelersAllTripsDestinations(allDestinations) {
+    const destinationRepo = new DestinationRepository(allDestinations)
+    this.specificTripsToUser.forEach(trip => destinationRepo.allTripsToUser.push(destinationRepo.filterDestinationById(trip.destinationID)))
+    return destinationRepo.allTripsToUser
   }
   filterTravelersAllActiveTripsDestinations(allDestinations) {
     const destinationRepo = new DestinationRepository(allDestinations)
@@ -94,6 +100,7 @@ destinationRepo.pastDestinations.push(destinationRepo.filterDestinationById(trip
     const travelerCost = destination.estimatedFlightCostPerPerson * trip.travelers
     const durationCost = destination.estimatedLodgingCostPerDay * trip.duration
     const initialCost = travelerCost + durationCost
+    this.estimateFee = initialCost * .1
     const finalCost = (initialCost * .1) + initialCost
     return finalCost
   }

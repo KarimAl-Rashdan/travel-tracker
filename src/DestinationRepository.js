@@ -3,6 +3,7 @@ class DestinationRepository {
   constructor(allDestinationData) {
     this.allDestinations = allDestinationData;
     this.currentDestinations;
+    this.allTripsToUser=[];
     this.approvedDestinations= [];
     this.pendingDestinations=[];
     this.pastDestinations=[];
