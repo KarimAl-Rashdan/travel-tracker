@@ -284,13 +284,13 @@ describe("Trip Repository", () => {
       "image": "https://images.unsplash.com/photo-1544525977-0a3bca9e560d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
       "alt": "boat on dock during daytime"
     }];
-    expect(tripRepository1.filterTravelersDestinations(sampleDestinationData)).to.eql(destinations);
+    expect(tripRepository1.filterTravelersAnnualTripsDestinations(sampleDestinationData)).to.eql(destinations);
   });
   it("Should return total amount spent on this year's trips", () => {
     tripRepository1.filterTrips(17);
     tripRepository1.filterApprovedTrips();
     tripRepository1.findAnnualTrips();
-    tripRepository1.filterTravelersDestinations(sampleDestinationData);
+    tripRepository1.filterTravelersAnnualTripsDestinations(sampleDestinationData);
     expect(tripRepository1.calculateAnnualTripCost(tripRepository1.allDestinations)).to.equal(9636);
   });
   it("Should tell traveler if they spent zero on this year's trips", () => {

@@ -18,6 +18,7 @@ let destinationRepository;
 let tripRepository;
 let currentTraveler;
 let currentTravelerID;
+let currentTravelerTrips;
 
 const travelerAPI = "http://localhost:3001/api/v1/travelers";
 const destinationAPI = "http://localhost:3001/api/v1/destinations";
@@ -41,6 +42,7 @@ function getData() {
   
   //Query Selector Section
   const welcomeSection = document.getElementById("welcome-traveler");
+  const allTripsSection = document.getElementById("all-status-trips");
   
   //Add Event Listener Section
   window.addEventListener("load", getData);
@@ -68,10 +70,15 @@ function welcomeTraveler() {
 }
 
 function getTrips(id) {
-console.log("trips", tripRepository)
- let currentTravelerTrips = tripRepository.filterTrips(id)
- console.log("currentTrips", currentTravelerTrips)
+// console.log("trips", tripRepository)
+ currentTravelerTrips = tripRepository.filterTrips(id)
+ console.log("LOOK HERE", tripRepository.specificTripsToUser)
+//  console.log("currentTrips", currentTravelerTrips)
 }
 
-
+function displayAllTrips() {
+  tripRepository.filterTravelersDestinations(allDestinationData)
+  tripRepository.specificTripsToUser
+  // allTripsSection.innerHTML += 
+}
 // function getDestinations()

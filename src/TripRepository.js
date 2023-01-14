@@ -45,7 +45,8 @@ class TripRepository {
     this.specificAnnualTrips = annualTrips
     return annualTrips
   }
-  filterTravelersDestinations(allDestinations) {
+
+  filterTravelersAnnualTripsDestinations(allDestinations) {
     const destinationRepo = new DestinationRepository(allDestinations)
     this.specificAnnualTrips.forEach(trip => this.allDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
     return this.allDestinations
