@@ -43,22 +43,49 @@ function getData() {
   //Query Selector Section
   const welcomeSection = document.getElementById("welcome-traveler");
   const allTripsSection = document.getElementById("all-status-trips");
-  const totalSpentSection = document.querySelector(".total-spent")
-  const destinationOptions = document.getElementById("available-destinations")
-  const submitBookingButton = document.getElementById("submit-booking")
-  const dateInput = document.getElementById("input-date")
-  const durationInput = document.getElementById("duration-input")
-  const travelerInput = document.getElementById("travelers-input")
-  const destinationInput = document.getElementById("destinations-input")
-  const postSuccessDisplay = document.getElementById("post-success")
-  const postFailureDisplay = document.getElementById("post-failure")
+  const totalSpentSection = document.querySelector(".total-spent");
+  const destinationOptions = document.getElementById("available-destinations");
+  const submitBookingButton = document.getElementById("submit-booking");
+  const dateInput = document.getElementById("input-date");
+  const durationInput = document.getElementById("duration-input");
+  const travelerInput = document.getElementById("travelers-input");
+  const destinationInput = document.getElementById("destinations-input");
+  const estimatedTripCost = document.getElementById("estimated-cost");
+  const postSuccessDisplay = document.getElementById("post-success");
+  const postFailureDisplay = document.getElementById("post-failure");
+  const showRequiredFieldsError = document.getElementById("required-fields-error");
+
   
   //Add Event Listener Section
   window.addEventListener("load", getData);
 
   submitBookingButton.addEventListener("click", (event) => {
-    createPostObject(event)
-  })
+    createPostObject(event);
+  });
+  dateInput.addEventListener("input", () => {
+    showRequiredFieldsError.classList.add("hidden");
+    if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
+      showEstimatedCost();
+    }
+  });
+  durationInput.addEventListener("input", () => {
+    showRequiredFieldsError.classList.add("hidden");
+    if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
+      showEstimatedCost();
+    }
+  });
+  travelerInput.addEventListener("input", () => {
+    showRequiredFieldsError.classList.add("hidden");
+    if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
+      showEstimatedCost();
+    }
+  });
+  destinationInput.addEventListener("keyup", () => {
+    showRequiredFieldsError.classList.add("hidden");
+    if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
+      showEstimatedCost();
+    }
+  });
   
   //Functions
   function createClassInstance(dataSet1, dataSet2, dataSet3) {
@@ -76,9 +103,9 @@ function getData() {
     currentTravelerID = currentTraveler.id;
     welcomeTraveler();
     getTrips(currentTravelerID);
-    displayAllTrips()
-    displayTotalSpent()
-    showDestinationOptions()
+    displayAllTrips();
+    displayTotalSpent();
+    showDestinationOptions();
   }
 
 function welcomeTraveler() {
@@ -86,47 +113,42 @@ function welcomeTraveler() {
 }
 
 function getTrips(id) {
- currentTravelerTrips = tripRepository.filterTrips(id)
+ currentTravelerTrips = tripRepository.filterTrips(id);
 }
 
 function displayAllTrips() {
-  allTripsSection.innerHTML=""
-  console.log("specifictrips", tripRepository.specificTripsToUser)
+  allTripsSection.innerHTML= "";
   tripRepository.specificTripsToUser.forEach(trip => {
-    const destination = destinationRepository.filterDestinationById(trip.destinationID) 
-  allTripsSection.innerHTML += `
-  <section class="trip" id="trip">
-    <img class="destination-img" src=${destination.image} alt=${destination.alt}>
-    <article class="trip-details">
-      <h5 class="destination-name">${destination.destination}</h5>
-      <p class="trip-status">Status: ${trip.status}</p>
-    </article>
-  </section>`
-  })
-
+    const destination = destinationRepository.filterDestinationById(trip.destinationID);
+    allTripsSection.innerHTML += `
+    <section class="trip" id="trip">
+      <img class="destination-img" src=${destination.image} alt=${destination.alt}>
+      <article class="trip-details">
+        <h5 class="destination-name">${destination.destination}</h5>
+        <p class="trip-status">Status: ${trip.status}</p>
+      </article>
+    </section>`;
+  });
 }
 
 function displayTotalSpent() {
-  tripRepository.filterApprovedTrips()
-  tripRepository.findAnnualTrips()
+  tripRepository.filterApprovedTrips();
+  tripRepository.findAnnualTrips();
   tripRepository.filterTravelersAnnualTripsDestinations(destinationRepository);
-  const total = tripRepository.calculateAnnualTripCost(tripRepository.allAnnualDestinations)
-  totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12/01 - 2020/12/01): $${total}`
+  const total = tripRepository.calculateAnnualTripCost(tripRepository.allAnnualDestinations);
+  totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12/01 - 2020/12/01): $${total}`;
 }
 
 function showDestinationOptions() {
   destinationRepository.allDestinations.forEach(destination => {
-    // console.log(destination.destination)
-    destinationOptions.innerHTML += `<option value="${destination.destination}">`
-  })
+    destinationOptions.innerHTML += `<option value="${destination.destination}">`;
+  });
 }
-function createPostObject(event) {
-event.preventDefault()
-if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
-  const lastTripID = allTripData.sort((a,b) => b.id - a.id)
-  const nextTripIndex = lastTripID[0].id + 1
-  const dateValue = dateInput.value.replaceAll("-", "/")
-  const destinationId = destinationRepository.filterDestinationIdByName(destinationInput.value)
+function showEstimatedCost() {
+  const lastTripID = allTripData.sort((a,b) => b.id - a.id);
+  const nextTripIndex = lastTripID[0].id + 1;
+  const dateValue = dateInput.value.replaceAll("-", "/");
+  const destinationId = destinationRepository.filterDestinationIdByName(destinationInput.value);
   const tripObj = {
     id: nextTripIndex, 
     userID: currentTravelerID, 
@@ -136,13 +158,32 @@ if(dateInput.value && durationInput.value && travelerInput.value && destinationI
     duration: Number(durationInput.value), 
     status: "pending", 
     suggestedActivities: [] 
-  }
-  postNewTrip(tripObj)
-} else {
-  console.log("Fill in All Inputs!")
-  return "Fill in All Inputs!"
+  };
+  estimatedTripCost.innerText = tripRepository.calculateOneTripCost(tripObj, destinationRepository);
 }
 
+function createPostObject(event) {
+  event.preventDefault();
+  if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
+    const lastTripID = allTripData.sort((a,b) => b.id - a.id);
+    const nextTripIndex = lastTripID[0].id + 1;
+    const dateValue = dateInput.value.replaceAll("-", "/");
+    const destinationId = destinationRepository.filterDestinationIdByName(destinationInput.value);
+    const tripObj = {
+      id: nextTripIndex, 
+      userID: currentTravelerID, 
+      destinationID: destinationId, 
+      travelers: Number(travelerInput.value), 
+      date: dateValue, 
+      duration: Number(durationInput.value), 
+      status: "pending", 
+      suggestedActivities: [] 
+    };
+    estimatedTripCost.innerText = tripRepository.calculateOneTripCost(tripObj, destinationRepository);
+    postNewTrip(tripObj);
+  } else {
+    showRequiredFieldsError.classList.remove("hidden");
+  }
 }
 
 function postNewTrip(tripObject) {
@@ -155,18 +196,17 @@ function postNewTrip(tripObject) {
   })
   .then((response) => {
     if(!response.ok) {
-      throw new Error()
+      throw new Error();
     } 
-    return response.json()
+    return response.json();
     })
   .then((data) => {
-    postSuccessDisplay.classList.remove("hidden")
-    fetchAgain()
+    postSuccessDisplay.classList.remove("hidden");
+    fetchAgain();
   })
   .catch((error) => {
-    postFailureDisplay.classList.remove("hidden")
+    postFailureDisplay.classList.remove("hidden");
   })
-
 }
 
 function fetchAgain() {
@@ -175,25 +215,24 @@ function fetchAgain() {
     getAPIData(destinationAPI),
     getAPIData(tripAPI),
   ])
-    .then((response) => {
-      allTravelerData = response[0].travelers;
-      allDestinationData = response[1].destinations;
-      allTripData = response[2].trips;
-      createClassInstance(allTravelerData, allDestinationData, allTripData);
-      getTrips(currentTravelerID);
-      displayAllTrips()
-      // getRandomTraveler(allTravelerData);
-      clearInputs()
-    })
-    .catch((error) => console.log(error));
-  
+  .then((response) => {
+    allTravelerData = response[0].travelers;
+    allDestinationData = response[1].destinations;
+    allTripData = response[2].trips;
+    createClassInstance(allTravelerData, allDestinationData, allTripData);
+    getTrips(currentTravelerID);
+    displayAllTrips();
+    clearInputs();
+  })
+  .catch((error) => console.log(error));
 }
 
 function clearInputs() {
   dateInput.value = "";
-  durationInput.value="";
-  travelerInput.value="";
-  destinationInput.value=""
+  durationInput.value= "";
+  travelerInput.value= "";
+  destinationInput.value= "";
+  showEstimatedCost.innerText = "";
 }
 
 
