@@ -19,4 +19,7 @@ describe("Destination Repository", () => {
   it("Should return a destination based off an id", () => {
     expect(destinationRepository1.filterDestinationById(destination1.id)).to.equal(sampleDestinationData[0])
   })
+  it("Should return destination id based off of name", () => {
+    expect(destinationRepository1.filterDestinationIdByName("Stockholm, Sweden")).to.equal(2)
+  })
 });
