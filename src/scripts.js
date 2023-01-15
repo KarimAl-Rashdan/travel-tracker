@@ -91,6 +91,7 @@ function getTrips(id) {
 
 function displayAllTrips() {
   allTripsSection.innerHTML=""
+  console.log("specifictrips", tripRepository.specificTripsToUser)
   tripRepository.specificTripsToUser.forEach(trip => {
     const destination = destinationRepository.filterDestinationById(trip.destinationID) 
   allTripsSection.innerHTML += `
@@ -160,6 +161,7 @@ function postNewTrip(tripObject) {
     })
   .then((data) => {
     postSuccessDisplay.classList.remove("hidden")
+    fetchAgain()
   })
   .catch((error) => {
     postFailureDisplay.classList.remove("hidden")
@@ -167,6 +169,31 @@ function postNewTrip(tripObject) {
 
 }
 
+function fetchAgain() {
+  Promise.all([
+    getAPIData(travelerAPI),
+    getAPIData(destinationAPI),
+    getAPIData(tripAPI),
+  ])
+    .then((response) => {
+      allTravelerData = response[0].travelers;
+      allDestinationData = response[1].destinations;
+      allTripData = response[2].trips;
+      createClassInstance(allTravelerData, allDestinationData, allTripData);
+      getTrips(currentTravelerID);
+      displayAllTrips()
+      // getRandomTraveler(allTravelerData);
+      clearInputs()
+    })
+    .catch((error) => console.log(error));
+  
+}
 
+function clearInputs() {
+  dateInput.value = "";
+  durationInput.value="";
+  travelerInput.value="";
+  destinationInput.value=""
+}
 
 
