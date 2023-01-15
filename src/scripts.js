@@ -43,6 +43,7 @@ function getData() {
   //Query Selector Section
   const welcomeSection = document.getElementById("welcome-traveler");
   const allTripsSection = document.getElementById("all-status-trips");
+  const totalSpentSection = document.querySelector(".total-spent")
   
   //Add Event Listener Section
   window.addEventListener("load", getData);
@@ -64,6 +65,7 @@ function getData() {
     welcomeTraveler();
     getTrips(currentTravelerID);
     displayAllTrips()
+    displayTotalSpent()
   }
 
 function welcomeTraveler() {
@@ -92,5 +94,17 @@ function displayAllTrips() {
   </section>`
   })
 
+}
+
+function displayTotalSpent() {
+  tripRepository.filterApprovedTrips()
+  const annualTrips = tripRepository.findAnnualTrips()
+  console.log("annual trips", annualTrips)
+
+  const annualDestinations = tripRepository.filterTravelersAnnualTripsDestinations(allDestinationData);
+  console.log("annualDestinations", annualDestinations)
+  const total = tripRepository.calculateAnnualTripCost(tripRepository.allAnnualDestinations)
+  console.log("total", total)
+  totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12-01 - 2020/12/01): ${total}`
 }
 // function getDestinations()

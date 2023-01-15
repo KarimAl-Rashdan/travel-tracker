@@ -43,8 +43,8 @@ class TripRepository {
       return futureTrips;
   }
   findAnnualTrips() { 
-    const dateMin = new Date("2019/05/31")
-    const dateMax = new Date("2020/06/01")
+    const dateMin = new Date("2019/12/01")
+    const dateMax = new Date("2020/12/01")
     const annualTrips = this.specificApprovedTrips.filter(trip => new Date(trip.date) > dateMin && new Date(trip.date)<= dateMax)
     this.specificAnnualTrips = annualTrips
     return annualTrips
@@ -78,7 +78,7 @@ class TripRepository {
   filterTravelersAnnualTripsDestinations(allDestinations) {
     const destinationRepo = new DestinationRepository(allDestinations)
     this.specificAnnualTrips.forEach(trip => this.allAnnualDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
-    return this.allDestinations
+    return this.allAnnualDestinations
   }
   calculateAnnualTripCost(destinations) {
     if(destinations.length >= 1) {
@@ -94,9 +94,9 @@ class TripRepository {
         })
         return acc
       }, 0)
-      return initialCost;
+      return `$${initialCost}`;
     } else {
-      return `You have spent $0 on trips this year!`
+      return `$0`
     }
   }
   calculateOneTripCost(trip, allDestinations) {
