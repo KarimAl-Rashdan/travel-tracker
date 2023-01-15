@@ -50,6 +50,8 @@ function getData() {
   const durationInput = document.getElementById("duration-input")
   const travelerInput = document.getElementById("travelers-input")
   const destinationInput = document.getElementById("destinations-input")
+  const postSuccessDisplay = document.getElementById("post-success")
+  const postFailureDisplay = document.getElementById("post-failure")
   
   //Add Event Listener Section
   window.addEventListener("load", getData);
@@ -119,21 +121,52 @@ function showDestinationOptions() {
 }
 function createPostObject(event) {
 event.preventDefault()
-// console.log("allTripData", all TripData)
-// console.log("currenttravelertrips", currentTravelerTrips)
 if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
   const lastTripID = allTripData.sort((a,b) => b.id - a.id)
   const nextTripIndex = lastTripID[0].id + 1
   const dateValue = dateInput.value.replaceAll("-", "/")
   const destinationId = destinationRepository.filterDestinationIdByName(destinationInput.value)
-  const tripObj = {id: nextTripIndex, userID: currentTravelerID, destinationID: destinationId, travelers: Number(travelerInput.value), date: dateValue, duration: Number(durationInput.value), status: "pending", suggestedActivities: [] }
-  console.log("currentuser", currentTraveler)
-  console.log("postTripObj", tripObj)
+  const tripObj = {
+    id: nextTripIndex, 
+    userID: currentTravelerID, 
+    destinationID: destinationId, 
+    travelers: Number(travelerInput.value), 
+    date: dateValue, 
+    duration: Number(durationInput.value), 
+    status: "pending", 
+    suggestedActivities: [] 
+  }
+  postNewTrip(tripObj)
 } else {
   console.log("Fill in All Inputs!")
   return "Fill in All Inputs!"
 }
 
 }
+
+function postNewTrip(tripObject) {
+  fetch("http://localhost:3001/api/v1/trips", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(tripObject)
+  })
+  .then((response) => {
+    if(!response.ok) {
+      throw new Error()
+    } 
+    return response.json()
+    })
+  .then((data) => {
+    postSuccessDisplay.classList.remove("hidden")
+  })
+  .catch((error) => {
+    postFailureDisplay.classList.remove("hidden")
+  })
+
+}
+
+
 
 
