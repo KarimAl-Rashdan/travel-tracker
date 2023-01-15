@@ -57,7 +57,14 @@ main {
   height:70vh;
   padding:15px;
 }
-
+.trip > img{
+  width:100%;
+}
+.trip-details > h5,
+.trip-details > p{
+  margin: 0px;
+  font-size: small;
+}
 h3 {
   display: flex;
   justify-content: center;

@@ -18,6 +18,7 @@ let destinationRepository;
 let tripRepository;
 let currentTraveler;
 let currentTravelerID;
+let currentTravelerTrips;
 
 const travelerAPI = "http://localhost:3001/api/v1/travelers";
 const destinationAPI = "http://localhost:3001/api/v1/destinations";
@@ -37,31 +38,64 @@ function getData() {
       getRandomTraveler(allTravelerData);
     })
     .catch((error) => console.log(error));
-}
-
-//Query Selector Section
-const welcomeSection = document.getElementById("welcome-traveler");
-
-//Add Event Listener Section
-window.addEventListener("load", getData);
-
-//Functions
-function createClassInstance(dataSet1, dataSet2, dataSet3) {
-  allTravelerData = dataSet1.map((traveler) => new Traveler(traveler));
-  travelerRepository = new TravelerRepository(allTravelerData);
-  allDestinationData = dataSet2.map((destination) => new Destination(destination));
-  destinationRepository = new DestinationRepository(allDestinationData);
-  allTripData = dataSet3.map((trip) => new Trip(trip));
-  tripRepository = new TripRepository(allTripData);
-}
-
-function getRandomTraveler(travelerData) {
-  const randomID = Math.floor(Math.random() * travelerData.length);
-  currentTraveler = travelerData[randomID];
-  currentTravelerID = currentTraveler.id;
-  welcomeTraveler();
-}
+  }
+  
+  //Query Selector Section
+  const welcomeSection = document.getElementById("welcome-traveler");
+  const allTripsSection = document.getElementById("all-status-trips");
+  const totalSpentSection = document.querySelector(".total-spent")
+  
+  //Add Event Listener Section
+  window.addEventListener("load", getData);
+  
+  //Functions
+  function createClassInstance(dataSet1, dataSet2, dataSet3) {
+    allTravelerData = dataSet1.map((traveler) => new Traveler(traveler));
+    travelerRepository = new TravelerRepository(allTravelerData);
+    allDestinationData = dataSet2.map((destination) => new Destination(destination));
+    destinationRepository = new DestinationRepository(allDestinationData);
+    allTripData = dataSet3.map((trip) => new Trip(trip));
+    tripRepository = new TripRepository(allTripData);
+  }
+  
+  function getRandomTraveler(travelerData) {
+    const randomID = Math.floor(Math.random() * travelerData.length);
+    currentTraveler = travelerData[randomID];
+    currentTravelerID = currentTraveler.id;
+    welcomeTraveler();
+    getTrips(currentTravelerID);
+    displayAllTrips()
+    displayTotalSpent()
+  }
 
 function welcomeTraveler() {
   welcomeSection.innerText = `Welcome ${currentTraveler.name}!`;
+}
+
+function getTrips(id) {
+ currentTravelerTrips = tripRepository.filterTrips(id)
+}
+
+function displayAllTrips() {
+  allTripsSection.innerHTML=""
+  tripRepository.specificTripsToUser.forEach(trip => {
+    const destination = destinationRepository.filterDestinationById(trip.destinationID) 
+  allTripsSection.innerHTML += `
+  <section class="trip" id="trip">
+    <img class="destination-img" src=${destination.image} alt=${destination.alt}>
+    <article class="trip-details">
+      <h5 class="destination-name">${destination.destination}</h5>
+      <p class="trip-status">Status: ${trip.status}</p>
+    </article>
+  </section>`
+  })
+
+}
+
+function displayTotalSpent() {
+  tripRepository.filterApprovedTrips()
+  tripRepository.findAnnualTrips()
+  tripRepository.filterTravelersAnnualTripsDestinations(destinationRepository);
+  const total = tripRepository.calculateAnnualTripCost(tripRepository.allAnnualDestinations)
+  totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12/01 - 2020/12/01): ${total}`
 }

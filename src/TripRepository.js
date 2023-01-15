@@ -1,5 +1,3 @@
-
-import DestinationRepository from "./DestinationRepository"
 class TripRepository {
   constructor(allTripData) {
     this.allTrips = allTripData
@@ -9,7 +7,7 @@ class TripRepository {
     this.specificPastTrips = null;
     this.specificFutureTrips = null;
     this.specificAnnualTrips = null;
-    this.allDestinations = [];
+    this.allAnnualDestinations = [];
   }
   filterTrips(id) {
     const specificTravelerTrips = this.allTrips.filter(trip => trip.userID === id);
@@ -39,16 +37,15 @@ class TripRepository {
       return futureTrips;
   }
   findAnnualTrips() { 
-    const dateMin = new Date("2019/05/31")
-    const dateMax = new Date("2020/06/01")
+    const dateMin = new Date("2019/12/01")
+    const dateMax = new Date("2020/12/01")
     const annualTrips = this.specificApprovedTrips.filter(trip => new Date(trip.date) > dateMin && new Date(trip.date)<= dateMax)
     this.specificAnnualTrips = annualTrips
     return annualTrips
   }
-  filterTravelersDestinations(allDestinations) {
-    const destinationRepo = new DestinationRepository(allDestinations)
-    this.specificAnnualTrips.forEach(trip => this.allDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
-    return this.allDestinations
+  filterTravelersAnnualTripsDestinations(destinationRepo) {
+    this.specificAnnualTrips.forEach(trip => this.allAnnualDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
+    return this.allAnnualDestinations
   }
   calculateAnnualTripCost(destinations) {
     if(destinations.length >= 1) {
@@ -66,15 +63,15 @@ class TripRepository {
       }, 0)
       return initialCost;
     } else {
-      return `You have spent $0 on trips this year!`
+      return 0
     }
   }
-  calculateOneTripCost(trip, allDestinations) {
-    const destRepo = new DestinationRepository(allDestinations)
-    const destination = destRepo.filterDestinationById(trip.destinationID)
+  calculateOneTripCost(trip, destinationRepo) {
+    const destination = destinationRepo.filterDestinationById(trip.destinationID)
     const travelerCost = destination.estimatedFlightCostPerPerson * trip.travelers
     const durationCost = destination.estimatedLodgingCostPerDay * trip.duration
     const initialCost = travelerCost + durationCost
+    this.estimateFee = initialCost * .1
     const finalCost = (initialCost * .1) + initialCost
     return finalCost
   }

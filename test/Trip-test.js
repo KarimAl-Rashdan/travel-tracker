@@ -1,7 +1,5 @@
 import { expect } from "chai";
 import Trip from "../src/Trip";
-import sampleDestinationData from "../src/data/sample-destinations";
-import DestinationRepository from "../src/DestinationRepository";
 
 describe("Trip", () => {
   let trip21;
