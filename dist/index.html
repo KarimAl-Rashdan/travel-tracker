@@ -24,34 +24,33 @@
       <button class="log-out">Log Out</button>
     </nav>
     <div class="dashBoard-container">
-      <form class="book-trip">
+      <form class="book-trip" id="book-trip">
         <h2>Book a New Trip!</h2>
         <label class="" for="input-date">Calendar Input</label>
         <input class="input-date" id="input-date" type="date" placeholder="Date">
         <label for="duration-input" class="">Duration Input</label>
-        <input class="hours-Slept" id="duration-input" type="number" placeholder="1 Day" min=1 max=31 step=1>
+        <input class="duration-input" id="duration-input" type="number" placeholder="1 Day" min=1 max=31 step=1>
         <label for="travelers-input" class="">Travelers Input</label>
-        <input class="sleep-Quality" id="travelers-input" type="number" placeholder="1 traveler" min=1 max=10 step=1>
+        <input class="travelers-input" id="travelers-input" type="number" placeholder="1 traveler" min=1 max=10 step=1>
         <label for="destinations-input" class="">Destinations Input</label>
-        <input class="sleep-Quality" id="destinations-input" list="available-destinations" placeholder="Lima, Peru" min=1 max=10 step=1>
+        <input class="destinations-input" id="destinations-input" list="available-destinations" placeholder="Lima, Peru" min=1 max=10 step=1>
         <datalist id="available-destinations">
         </datalist>
+        <p class="estimated-cost" id="estimated-cost"></p>
         <button class="submit-booking" id="submit-booking">Book Trip!</button>
-        <p class="estimated-cost hidden"></p>
+        <h3 class="post-success hidden" id="post-success">Post was successful!</h3>
       </form>
       <section class="trip-view">
+        <section>
+          <p class="fetch-failure hidden" id="fetch-failure">Sorry! Failed to fetch. Please try again!</p>
+          <p class="post-failure hidden" id="post-failure">Sorry! Failed to post.Please try again!</p>
+        </section>
         <header>
           <h3 class="all-trips">All Trips</h3>
           <h4 class="total-spent">Total AAmount Spent on Approved trips:</h4>
         </header>
         <section class="all-status-trips" id="all-status-trips">
         </section>
-        <h3 class="active-trips hidden">Active Trips</h3>
-        <section class="active hidden"></section>
-        <h3 class="pending-trips hidden">Pending Trips</h3>
-        <section class="pending hidden"></section>
-        <h3 class="past-trips hidden">Past Trips</h3>
-        <section class="past hidden"></section>
       </section>
     </div>
   </main>
