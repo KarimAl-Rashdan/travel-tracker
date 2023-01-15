@@ -44,9 +44,19 @@ function getData() {
   const welcomeSection = document.getElementById("welcome-traveler");
   const allTripsSection = document.getElementById("all-status-trips");
   const totalSpentSection = document.querySelector(".total-spent")
+  const destinationOptions = document.getElementById("available-destinations")
+  const submitBookingButton = document.getElementById("submit-booking")
+  const dateInput = document.getElementById("input-date")
+  const durationInput = document.getElementById("duration-input")
+  const travelerInput = document.getElementById("travelers-input")
+  const destinationInput = document.getElementById("destinations-input")
   
   //Add Event Listener Section
   window.addEventListener("load", getData);
+
+  submitBookingButton.addEventListener("click", (event) => {
+    createPostObject(event)
+  })
   
   //Functions
   function createClassInstance(dataSet1, dataSet2, dataSet3) {
@@ -66,6 +76,7 @@ function getData() {
     getTrips(currentTravelerID);
     displayAllTrips()
     displayTotalSpent()
+    showDestinationOptions()
   }
 
 function welcomeTraveler() {
@@ -100,6 +111,29 @@ function displayTotalSpent() {
   totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12/01 - 2020/12/01): $${total}`
 }
 
+function showDestinationOptions() {
+  destinationRepository.allDestinations.forEach(destination => {
+    // console.log(destination.destination)
+    destinationOptions.innerHTML += `<option value="${destination.destination}">`
+  })
+}
+function createPostObject(event) {
+event.preventDefault()
+// console.log("allTripData", all TripData)
+// console.log("currenttravelertrips", currentTravelerTrips)
+if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
+  const lastTripID = allTripData.sort((a,b) => b.id - a.id)
+  const nextTripIndex = lastTripID[0].id + 1
+  const dateValue = dateInput.value.replaceAll("-", "/")
+  const destinationId = destinationRepository.filterDestinationIdByName(destinationInput.value)
+  const tripObj = {id: nextTripIndex, userID: currentTravelerID, destinationID: destinationId, travelers: Number(travelerInput.value), date: dateValue, duration: Number(durationInput.value), status: "pending", suggestedActivities: [] }
+  console.log("currentuser", currentTraveler)
+  console.log("postTripObj", tripObj)
+} else {
+  console.log("Fill in All Inputs!")
+  return "Fill in All Inputs!"
+}
 
+}
 
 
