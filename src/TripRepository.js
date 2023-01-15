@@ -1,10 +1,6 @@
-
-import DestinationRepository from "./DestinationRepository"
 class TripRepository {
   constructor(allTripData) {
     this.allTrips = allTripData
-    // this.allUsersDestinations = [];
-    // this.allUserTripStatus= [];
     this.specificTripsToUser = null;
     this.specificPendingTrips = null;
     this.specificApprovedTrips = null;
@@ -12,7 +8,6 @@ class TripRepository {
     this.specificFutureTrips = null;
     this.specificAnnualTrips = null;
     this.allAnnualDestinations = [];
-    // this.estimateFee= null
   }
   filterTrips(id) {
     const specificTravelerTrips = this.allTrips.filter(trip => trip.userID === id);
@@ -27,7 +22,6 @@ class TripRepository {
   filterApprovedTrips() {
     const approvedTrips = this.specificTripsToUser.filter(trip => trip.status === "approved")
     this.specificApprovedTrips = approvedTrips
-    // console.log(approvedTrips)
     return approvedTrips
   }
   filterPastTrips(date) {
@@ -49,34 +43,7 @@ class TripRepository {
     this.specificAnnualTrips = annualTrips
     return annualTrips
   }
-  // filterTravelersAllTripsDestinations(allDestinations) {
-  //   const destinationRepo = new DestinationRepository(allDestinations)
-  //   this.specificTripsToUser.forEach(trip => {
-  //     this.allUsersDestinations.push(destinationRepo.filterDestinationById(trip.destinationID))
-  //     this.allUserTripStatus.push(trip.status)
-  //   })
-  //   // return destinationRepo.allTripsToUser
-  // }
-//   filterTravelersAllActiveTripsDestinations(allDestinations) {
-//     const destinationRepo = new DestinationRepository(allDestinations)
-//     this.specificApprovedTrips.forEach(trip => 
-// destinationRepo.approvedDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
-//     return destinationRepo.approvedDestinations
-  // }
-//   filterTravelersAllPendingTripsDestinations(allDestinations) {
-//     const destinationRepo = new DestinationRepository(allDestinations)
-//     this.specificPendingTrips.forEach(trip => 
-// destinationRepo.pendingDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
-//     return destinationRepo.pendingDestinations
-//   }
-//   filterTravelersAllPastTripsDestinations(allDestinations) {
-//     const destinationRepo = new DestinationRepository(allDestinations)
-//     this.specificPastTrips.forEach(trip => 
-// destinationRepo.pastDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
-//     return destinationRepo.pastDestinations
-//   }
-  filterTravelersAnnualTripsDestinations(allDestinations) {
-    const destinationRepo = new DestinationRepository(allDestinations)
+  filterTravelersAnnualTripsDestinations(destinationRepo) {
     this.specificAnnualTrips.forEach(trip => this.allAnnualDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
     return this.allAnnualDestinations
   }
@@ -99,9 +66,8 @@ class TripRepository {
       return `$0`
     }
   }
-  calculateOneTripCost(trip, allDestinations) {
-    const destRepo = new DestinationRepository(allDestinations)
-    const destination = destRepo.filterDestinationById(trip.destinationID)
+  calculateOneTripCost(trip, destinationRepo) {
+    const destination = destinationRepo.filterDestinationById(trip.destinationID)
     const travelerCost = destination.estimatedFlightCostPerPerson * trip.travelers
     const durationCost = destination.estimatedLodgingCostPerDay * trip.duration
     const initialCost = travelerCost + durationCost

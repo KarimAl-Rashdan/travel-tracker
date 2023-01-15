@@ -73,15 +73,11 @@ function welcomeTraveler() {
 }
 
 function getTrips(id) {
-// console.log("trips", tripRepository)
  currentTravelerTrips = tripRepository.filterTrips(id)
- console.log("LOOK HERE", tripRepository.specificTripsToUser)
-//  console.log("currentTrips", currentTravelerTrips)
 }
 
 function displayAllTrips() {
   allTripsSection.innerHTML=""
-  // tripRepository.filterTravelersAllTripsDestinations(allDestinationData)
   tripRepository.specificTripsToUser.forEach(trip => {
     const destination = destinationRepository.filterDestinationById(trip.destinationID) 
   allTripsSection.innerHTML += `
@@ -98,13 +94,8 @@ function displayAllTrips() {
 
 function displayTotalSpent() {
   tripRepository.filterApprovedTrips()
-  const annualTrips = tripRepository.findAnnualTrips()
-  console.log("annual trips", annualTrips)
-
-  const annualDestinations = tripRepository.filterTravelersAnnualTripsDestinations(allDestinationData);
-  console.log("annualDestinations", annualDestinations)
+  tripRepository.findAnnualTrips()
+  tripRepository.filterTravelersAnnualTripsDestinations(destinationRepository);
   const total = tripRepository.calculateAnnualTripCost(tripRepository.allAnnualDestinations)
-  console.log("total", total)
-  totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12-01 - 2020/12/01): ${total}`
+  totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12/01 - 2020/12/01): ${total}`
 }
-// function getDestinations()
