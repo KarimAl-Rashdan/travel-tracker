@@ -53,7 +53,7 @@ function getData() {
   const estimatedTripCost = document.getElementById("estimated-cost");
   const postSuccessDisplay = document.getElementById("post-success");
   const postFailureDisplay = document.getElementById("post-failure");
-  const showRequiredFieldsError = document.getElementById("required-fields-error");
+  const bookingForm = document.getElementById("book-trip")
 
   
   //Add Event Listener Section
@@ -62,28 +62,12 @@ function getData() {
   submitBookingButton.addEventListener("click", (event) => {
     createPostObject(event);
   });
-  dateInput.addEventListener("input", () => {
-    showRequiredFieldsError.classList.add("hidden");
+  bookingForm.addEventListener("mouseover", () => {
     if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
+      submitBookingButton.disabled = false
       showEstimatedCost();
-    }
-  });
-  durationInput.addEventListener("input", () => {
-    showRequiredFieldsError.classList.add("hidden");
-    if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
-      showEstimatedCost();
-    }
-  });
-  travelerInput.addEventListener("input", () => {
-    showRequiredFieldsError.classList.add("hidden");
-    if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
-      showEstimatedCost();
-    }
-  });
-  destinationInput.addEventListener("keyup", () => {
-    showRequiredFieldsError.classList.add("hidden");
-    if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
-      showEstimatedCost();
+    } else {
+      submitBookingButton.disabled = true
     }
   });
   
@@ -160,30 +144,15 @@ function showEstimatedCost() {
     suggestedActivities: [] 
   };
   estimatedTripCost.innerText = tripRepository.calculateOneTripCost(tripObj, destinationRepository);
+  return tripObj
 }
 
 function createPostObject(event) {
   event.preventDefault();
   if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
-    const lastTripID = allTripData.sort((a,b) => b.id - a.id);
-    const nextTripIndex = lastTripID[0].id + 1;
-    const dateValue = dateInput.value.replaceAll("-", "/");
-    const destinationId = destinationRepository.filterDestinationIdByName(destinationInput.value);
-    const tripObj = {
-      id: nextTripIndex, 
-      userID: currentTravelerID, 
-      destinationID: destinationId, 
-      travelers: Number(travelerInput.value), 
-      date: dateValue, 
-      duration: Number(durationInput.value), 
-      status: "pending", 
-      suggestedActivities: [] 
-    };
-    estimatedTripCost.innerText = tripRepository.calculateOneTripCost(tripObj, destinationRepository);
+    const tripObj = showEstimatedCost()
     postNewTrip(tripObj);
-  } else {
-    showRequiredFieldsError.classList.remove("hidden");
-  }
+  } 
 }
 
 function postNewTrip(tripObject) {
