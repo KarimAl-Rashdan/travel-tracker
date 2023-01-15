@@ -45,6 +45,7 @@ class TripRepository {
   }
   filterTravelersAnnualTripsDestinations(destinationRepo) {
     this.specificAnnualTrips.forEach(trip => this.allAnnualDestinations.push(destinationRepo.filterDestinationById(trip.destinationID)))
+    console.log("jewws", this.specificAnnualTrips)
     return this.allAnnualDestinations
   }
   calculateAnnualTripCost(destinations) {
@@ -61,9 +62,9 @@ class TripRepository {
         })
         return acc
       }, 0)
-      return `$${initialCost}`;
+      return initialCost;
     } else {
-      return `$0`
+      return 0
     }
   }
   calculateOneTripCost(trip, destinationRepo) {

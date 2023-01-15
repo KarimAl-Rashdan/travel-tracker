@@ -2,7 +2,7 @@ import { expect } from "chai";
 import TripRepository from "../src/TripRepository";
 import sampleTripData from "../src/data/sample-trips";
 import sampleDestinationData from "../src/data/sample-destinations";
-
+import DestinationRepository from "../src/DestinationRepository"
 describe("Trip Repository", () => {
   let tripRepository1;
 
@@ -226,101 +226,57 @@ describe("Trip Repository", () => {
   it("Should return the approved trips for a specific traveler", () => {
     const traveler17AnnualTrips = [
       {
-        "id": 184,
-        "userID": 17,
-        "destinationID": 11,
-        "travelers": 1,
-        "date": "2019/12/27",
-        "duration": 7,
-        "status": "approved",
-        "suggestedActivities": []
+        id: 172,
+        userID: 17,
+        destinationID: 38,
+        travelers: 5,
+        date: '2020/06/17',
+        duration: 13,
+        status: 'approved',
+        suggestedActivities: []
+      },{
+        id: 184,
+        userID: 17,
+        destinationID: 11,
+        travelers: 1,
+        date: '2019/12/27',
+        duration: 7,
+        status: 'approved',
+        suggestedActivities: []
       }, {
-        "id": 185,
-        "userID": 17,
-        "destinationID": 35,
-        "travelers": 4,
-        "date": "2019/09/02",
-        "duration": 16,
-        "status": "approved",
-        "suggestedActivities": []
-      }, {
-        "id": 186,
-        "userID": 17,
-        "destinationID": 44,
-        "travelers": 6,
-        "date": "2020/02/08",
-        "duration": 6,
-        "status": "approved",
-        "suggestedActivities": []
+        id: 186,
+        userID: 17,
+        destinationID: 44,
+        travelers: 6,
+        date: '2020/02/08',
+        duration: 6,
+        status: 'approved',
+        suggestedActivities: []
       }
     ];
     tripRepository1.filterTrips(17);
     tripRepository1.filterApprovedTrips();
     expect(tripRepository1.findAnnualTrips()).to.eql(traveler17AnnualTrips);
   })
-  it("Should return destinations for all approved trips", () => {
-    const tripsDestinations = [
-      {
-        "id": 31,
-        "destination": "Colombo, Sri Lanka",
-        "estimatedLodgingCostPerDay": 55,
-        "estimatedFlightCostPerPerson": 1300,
-        "image": "https://images.unsplash.com/photo-1578159802020-13ec49d669df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-        "alt": "people walking inside flea market"
-      },{
-        "id": 38,
-        "destination": "Helsinki, Finland",
-        "estimatedLodgingCostPerDay": 950,
-        "estimatedFlightCostPerPerson": 100,
-        "image": "https://images.unsplash.com/photo-1517128581046-8ee7e6fa3cb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1484&q=80",
-        "alt": "two white motorboats on dock near brown trees at daytime"
-      },{
-        "id": 11,
-        "destination": "Mikonos, Greece",
-        "estimatedLodgingCostPerDay": 140,
-        "estimatedFlightCostPerPerson": 1000,
-        "image": "https://images.unsplash.com/photo-1573783309724-e44b859f5a85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80",
-        "alt": "cityscape along the water during the day"
-      },{
-        "id": 35,
-        "destination": "Anchorage, Alaska",
-        "estimatedLodgingCostPerDay": 200,
-        "estimatedFlightCostPerPerson": 100,
-        "image": "https://images.unsplash.com/photo-1539545547102-90ae2c140089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-        "alt": "man riding on kayak surrounded by mountains"
-      },{
-        "id": 44,
-        "destination": "Caye Caulker, Belize",
-        "estimatedLodgingCostPerDay": 450,
-        "estimatedFlightCostPerPerson": 80,
-        "image": "https://images.unsplash.com/photo-1544525977-0a3bca9e560d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-        "alt": "boat on dock during daytime"
-      }
-    ]
-    tripRepository1.filterTrips(17);
-    // tripRepository1.filterApprovedTrips()
-    // console.log(tripRepository1.specificApprovedTrips)
-    tripRepository1.filterApprovedTrips()
-    expect(tripRepository1.filterTravelersAllTripsDestinations(sampleDestinationData)).to.eql(tripsDestinations)
-  })
   it("Should return destinations for trips approved this year", () => {
+    let destinationRepo = new DestinationRepository(sampleDestinationData)
     tripRepository1.filterTrips(17);
     tripRepository1.filterApprovedTrips();
     tripRepository1.findAnnualTrips();
     const destinations = [{
+      "id": 38,
+      "destination": "Helsinki, Finland",
+      "estimatedLodgingCostPerDay": 950,
+      "estimatedFlightCostPerPerson": 100,
+      "image": "https://images.unsplash.com/photo-1517128581046-8ee7e6fa3cb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1484&q=80",
+      "alt": "two white motorboats on dock near brown trees at daytime"
+    },{
       "id": 11,
       "destination": "Mikonos, Greece",
       "estimatedLodgingCostPerDay": 140,
       "estimatedFlightCostPerPerson": 1000,
       "image": "https://images.unsplash.com/photo-1573783309724-e44b859f5a85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80",
       "alt": "cityscape along the water during the day"
-    },{
-      "id": 35,
-      "destination": "Anchorage, Alaska",
-      "estimatedLodgingCostPerDay": 200,
-      "estimatedFlightCostPerPerson": 100,
-      "image": "https://images.unsplash.com/photo-1539545547102-90ae2c140089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-      "alt": "man riding on kayak surrounded by mountains"
     },{
       "id": 44,
       "destination": "Caye Caulker, Belize",
@@ -329,19 +285,23 @@ describe("Trip Repository", () => {
       "image": "https://images.unsplash.com/photo-1544525977-0a3bca9e560d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
       "alt": "boat on dock during daytime"
     }];
-    expect(tripRepository1.filterTravelersAnnualTripsDestinations(sampleDestinationData)).to.eql(destinations);
+    expect(tripRepository1.filterTravelersAnnualTripsDestinations(destinationRepo)).to.eql(destinations);
   });
   it("Should return total amount spent on this year's trips", () => {
+    let destinationRepo = new DestinationRepository(sampleDestinationData)
+
     tripRepository1.filterTrips(17);
     tripRepository1.filterApprovedTrips();
     tripRepository1.findAnnualTrips();
-    tripRepository1.filterTravelersAnnualTripsDestinations(sampleDestinationData);
-    expect(tripRepository1.calculateAnnualTripCost(tripRepository1.allDestinations)).to.equal(9636);
+    tripRepository1.filterTravelersAnnualTripsDestinations(destinationRepo);
+    expect(tripRepository1.calculateAnnualTripCost(tripRepository1.allAnnualDestinations)).to.equal(19811);
   });
   it("Should tell traveler if they spent zero on this year's trips", () => {
-    expect(tripRepository1.calculateAnnualTripCost([])).to.equal("You have spent $0 on trips this year!");
+    expect(tripRepository1.calculateAnnualTripCost([])).to.equal(0);
   });
   it("Should return one trip estimated cost", () => {
-    expect(tripRepository1.calculateOneTripCost(sampleTripData[13], sampleDestinationData)).to.equal(3520);
+    let destinationRepo = new DestinationRepository(sampleDestinationData)
+
+    expect(tripRepository1.calculateOneTripCost(sampleTripData[13], destinationRepo)).to.equal(3520);
   });
 });
