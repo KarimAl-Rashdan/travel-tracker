@@ -97,5 +97,9 @@ function displayTotalSpent() {
   tripRepository.findAnnualTrips()
   tripRepository.filterTravelersAnnualTripsDestinations(destinationRepository);
   const total = tripRepository.calculateAnnualTripCost(tripRepository.allAnnualDestinations)
-  totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12/01 - 2020/12/01): ${total}`
+  totalSpentSection.innerText = `Total Amount Spent on Approved trips (2019/12/01 - 2020/12/01): $${total}`
 }
+
+
+
+
