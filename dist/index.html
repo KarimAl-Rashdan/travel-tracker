@@ -23,14 +23,14 @@
       <h1 id="welcome-traveler">Welcome TravelerName!</h1>
       <button class="log-out">Log Out</button>
     </nav>
-    <fieldset class="trips-categories">
+    <fieldset class="trips-categories" id="trips-categories">
       <legend class="hidden">Filter Trips</legend>
-      <label for="active-input">Active</label>
-      <input type="radio" id="active-input" name="trip-status" tabindex="0" aria-checked="false">
-      <label for="pending-input">Pending</label>
+      <label for="upcoming-input">Upcoming trips</label>
+      <input type="radio" id="upcoming-input" name="trip-status" tabindex="0" aria-checked="false">
+      <label for="pending-input">Pending trips</label>
       <input type="radio" id="pending-input" name="trip-status" tabindex="0" aria-checked="false">
-      <label for="past-input">Past</label>
-      <input type="radio" id="Past-input" name="trip-status" tabindex="0" aria-checked="false">
+      <label for="past-input">Past trips</label>
+      <input type="radio" id="past-input" name="trip-status" tabindex="0" aria-checked="false">
     </fieldset>
     <div class="dashBoard-container">
       <form class="book-trip" id="book-trip">

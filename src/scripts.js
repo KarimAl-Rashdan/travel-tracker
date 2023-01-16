@@ -54,7 +54,10 @@ function getData() {
   const postSuccessDisplay = document.getElementById("post-success");
   const postFailureDisplay = document.getElementById("post-failure");
   const bookingForm = document.getElementById("book-trip")
-
+  const tripsCategories = document.getElementById("trips-categories")
+  const upcomingRadioBtn = document.getElementById("upcoming-input")
+  const pendingRadioBtn = document.getElementById("pending-input")
+  const pastRadioBtn = document.getElementById("past-input")
   
   //Add Event Listener Section
   window.addEventListener("load", getData);
@@ -70,6 +73,8 @@ function getData() {
       submitBookingButton.disabled = true
     }
   });
+
+  tripsCategories.addEventListener("click", showTripCategories)
   
   //Functions
   function createClassInstance(dataSet1, dataSet2, dataSet3) {
@@ -204,4 +209,21 @@ function clearInputs() {
   showEstimatedCost.innerText = "";
 }
 
+function showTripCategories() {
+  console.log("hey youre clicking my assskk")
+  if(upcomingRadioBtn.checked) {
+    console.log("oh im checked hyaaaa")
+  }
+}
 
+function showSection(section1, section2, section3, section4) {
+  section1.classList.remove("hidden")
+  section2.classList.add("hidden")
+  section3.classList.add("hidden")
+  section4.classList.add("hidden")
+}
+
+/*const tripsCategories = document.getElementById("trips-categories")
+const upcomingRadioBtn = document.getElementById("upcoming-input")
+const pendingRadioBtn = document.getElementById("pending-input")
+const pastRadioBtn = document.getElementById("past-input")*/
