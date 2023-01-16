@@ -19,6 +19,7 @@ let tripRepository;
 let currentTraveler;
 let currentTravelerID;
 let currentTravelerTrips;
+let todaysDate;
 
 const travelerAPI = "http://localhost:3001/api/v1/travelers";
 const destinationAPI = "http://localhost:3001/api/v1/destinations";
@@ -98,6 +99,7 @@ function getData() {
     const randomID = Math.floor(Math.random() * travelerData.length);
     currentTraveler = travelerData[randomID];
     currentTravelerID = currentTraveler.id;
+    todaysDate = "2020/12/01"
     welcomeTraveler();
     getTrips(currentTravelerID);
     displayAllTrips();
@@ -124,6 +126,9 @@ function displayAllTrips() {
       <article class="trip-details">
         <h5 class="destination-name">${destination.destination}</h5>
         <p class="trip-status">Status: ${trip.status}</p>
+        <p class="trip-date">Date: ${trip.date}</p>
+        <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+        <p class="trip-duration">Duration: ${trip.duration}</p>
       </article>
     </section>`;
   });
@@ -232,7 +237,9 @@ function showTripCategories() {
   } else if(pastRadioBtn.checked) {
     console.log("past")
     tripTitle.innerText = "Past Trips"
+    displayPastTrips(todaysDate)
     showSection(pastTripsSection, upcomingTripsSection, pendingTripsSection, allTripsSection)
+
   } 
 }
 
@@ -243,4 +250,22 @@ function showSection(section1, section2, section3, section4) {
   section4.classList.add("hidden")
 }
 
+function displayPastTrips(date) {
+  const pastTrips = tripRepository.filterPastTrips(date)
+  pastTrips.forEach(trip => {
+    const pastDestinations = destinationRepository.filterDestinationById(trip.destinationID)
+    pastTripsSection.innerHTML += `
+    <section class="past-trips" id="past-trips">
+      <img class="destination-img" src=${pastDestinations.image} alt=${pastDestinations.alt}>
+      <article class="trip-details">
+      <h5 class="destination-name">${pastDestinations.destination}</h5>
+      <p class="trip-status">Status: ${trip.status}</p>
+      <p class="trip-date">Date: ${trip.date}</p>
+      <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+      <p class="trip-duration">Duration: ${trip.duration}</p>
+    `
+  })
+  console.log("past trips", pastTrips)
+  return pastTrips
+}
 
