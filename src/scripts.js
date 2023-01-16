@@ -233,6 +233,7 @@ function showTripCategories() {
   } else if(pendingRadioBtn.checked) {
     console.log("pending")
     tripTitle.innerText = "Pending Trips"
+    displayPendingTrips()
     showSection(pendingTripsSection, upcomingTripsSection, pastTripsSection, allTripsSection)
   } else if(pastRadioBtn.checked) {
     console.log("past")
@@ -258,14 +259,34 @@ function displayPastTrips(date) {
     <section class="past-trips" id="past-trips">
       <img class="destination-img" src=${pastDestinations.image} alt=${pastDestinations.alt}>
       <article class="trip-details">
-      <h5 class="destination-name">${pastDestinations.destination}</h5>
-      <p class="trip-status">Status: ${trip.status}</p>
-      <p class="trip-date">Date: ${trip.date}</p>
-      <p class="trip-travelers">Travelers: ${trip.travelers}</p>
-      <p class="trip-duration">Duration: ${trip.duration}</p>
+        <h5 class="destination-name">${pastDestinations.destination}</h5>
+        <p class="trip-status">Status: ${trip.status}</p>
+        <p class="trip-date">Date: ${trip.date}</p>
+        <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+        <p class="trip-duration">Duration: ${trip.duration}</p>
+      </article>
+    </section>
     `
   })
   console.log("past trips", pastTrips)
   return pastTrips
 }
 
+function displayPendingTrips() {
+  const pendingTrips = tripRepository.filterPendingTrips()
+  pendingTrips.forEach(trip => {
+    const pendingDestinations = destinationRepository.filterDestinationById(trip.destinationID)
+    pendingTripsSection.innerHTML += `
+    <section class="pending-trips" id="pending-trips">
+      <img class="destination-img" src=${pendingDestinations.image} alt=${pendingDestinations.alt}>
+      <article class="trip-details">
+        <h5 class="destination-name">${pendingDestinations.destination}</h5>
+        <p class="trip-status">Status: ${trip.status}</p>
+        <p class="trip-date">Date: ${trip.date}</p>
+        <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+        <p class="trip-duration">Duration: ${trip.duration}</p>
+      </article>
+    </section>
+    `
+  })
+}
