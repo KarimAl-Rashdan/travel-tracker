@@ -31,6 +31,7 @@
       <input type="radio" id="pending-input" name="trip-status" tabindex="0" aria-checked="false">
       <label for="past-input">Past trips</label>
       <input type="radio" id="past-input" name="trip-status" tabindex="0" aria-checked="false">
+      <button class="reset-radios">Reset Filter</button>
     </fieldset>
     <div class="dashBoard-container">
       <form class="book-trip" id="book-trip">
@@ -55,11 +56,13 @@
           <p class="post-failure hidden" id="post-failure">Sorry! Failed to post.Please try again!</p>
         </section>
         <header>
-          <h3 class="all-trips">All Trips</h3>
+          <h3 class="trip-title">All Trips</h3>
           <h4 class="total-spent">Total AAmount Spent on Approved trips:</h4>
         </header>
-        <section class="all-status-trips" id="all-status-trips">
-        </section>
+        <section class="all-status-trips" id="all-status-trips"></section>
+        <section class="upcoming hidden"></section>
+        <section class="pending hidden"></section>
+        <section class="past hidden"></section>
       </section>
     </div>
   </main>

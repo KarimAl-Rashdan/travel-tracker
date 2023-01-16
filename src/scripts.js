@@ -42,7 +42,6 @@ function getData() {
   
   //Query Selector Section
   const welcomeSection = document.getElementById("welcome-traveler");
-  const allTripsSection = document.getElementById("all-status-trips");
   const totalSpentSection = document.querySelector(".total-spent");
   const destinationOptions = document.getElementById("available-destinations");
   const submitBookingButton = document.getElementById("submit-booking");
@@ -58,7 +57,15 @@ function getData() {
   const upcomingRadioBtn = document.getElementById("upcoming-input")
   const pendingRadioBtn = document.getElementById("pending-input")
   const pastRadioBtn = document.getElementById("past-input")
-  
+  const allTripsSection = document.getElementById("all-status-trips");
+  const tripTitle = document.querySelector(".trip-title")
+  const upcomingTripsSection = document.querySelector(".upcoming")
+  const pendingTripsSection = document.querySelector(".pending")
+  const pastTripsSection = document.querySelector(".past")
+  const resetFilterBtn = document.querySelector(".reset-radios")
+
+
+
   //Add Event Listener Section
   window.addEventListener("load", getData);
 
@@ -75,6 +82,7 @@ function getData() {
   });
 
   tripsCategories.addEventListener("click", showTripCategories)
+  resetFilterBtn.addEventListener("click", displayAllTrips)
   
   //Functions
   function createClassInstance(dataSet1, dataSet2, dataSet3) {
@@ -107,6 +115,7 @@ function getTrips(id) {
 
 function displayAllTrips() {
   allTripsSection.innerHTML= "";
+  tripTitle.innerText = "All Trips"
   tripRepository.specificTripsToUser.forEach(trip => {
     const destination = destinationRepository.filterDestinationById(trip.destinationID);
     allTripsSection.innerHTML += `
@@ -212,8 +221,19 @@ function clearInputs() {
 function showTripCategories() {
   console.log("hey youre clicking my assskk")
   if(upcomingRadioBtn.checked) {
+    console.log("upcoming")
+    tripTitle.innerText = "Upcoming Trips"
+    showSection(upcomingTripsSection, pendingTripsSection, pastTripsSection, allTripsSection)
     console.log("oh im checked hyaaaa")
-  }
+  } else if(pendingRadioBtn.checked) {
+    console.log("pending")
+    tripTitle.innerText = "Pending Trips"
+    showSection(pendingTripsSection, upcomingTripsSection, pastTripsSection, allTripsSection)
+  } else if(pastRadioBtn.checked) {
+    console.log("past")
+    tripTitle.innerText = "Past Trips"
+    showSection(pastTripsSection, upcomingTripsSection, pendingTripsSection, allTripsSection)
+  } 
 }
 
 function showSection(section1, section2, section3, section4) {
@@ -223,7 +243,4 @@ function showSection(section1, section2, section3, section4) {
   section4.classList.add("hidden")
 }
 
-/*const tripsCategories = document.getElementById("trips-categories")
-const upcomingRadioBtn = document.getElementById("upcoming-input")
-const pendingRadioBtn = document.getElementById("pending-input")
-const pastRadioBtn = document.getElementById("past-input")*/
+
