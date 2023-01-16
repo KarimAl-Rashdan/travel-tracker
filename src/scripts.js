@@ -228,6 +228,7 @@ function showTripCategories() {
   if(upcomingRadioBtn.checked) {
     console.log("upcoming")
     tripTitle.innerText = "Upcoming Trips"
+    displayFutureTrips(todaysDate)
     showSection(upcomingTripsSection, pendingTripsSection, pastTripsSection, allTripsSection)
     console.log("oh im checked hyaaaa")
   } else if(pendingRadioBtn.checked) {
@@ -240,7 +241,6 @@ function showTripCategories() {
     tripTitle.innerText = "Past Trips"
     displayPastTrips(todaysDate)
     showSection(pastTripsSection, upcomingTripsSection, pendingTripsSection, allTripsSection)
-
   } 
 }
 
@@ -281,6 +281,25 @@ function displayPendingTrips() {
       <img class="destination-img" src=${pendingDestinations.image} alt=${pendingDestinations.alt}>
       <article class="trip-details">
         <h5 class="destination-name">${pendingDestinations.destination}</h5>
+        <p class="trip-status">Status: ${trip.status}</p>
+        <p class="trip-date">Date: ${trip.date}</p>
+        <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+        <p class="trip-duration">Duration: ${trip.duration}</p>
+      </article>
+    </section>
+    `
+  })
+}
+
+function displayFutureTrips(date) {
+  const futureTrips = tripRepository.filterFutureTrips(date)
+  futureTrips.forEach(trip => {
+    const futureDestinations = destinationRepository.filterDestinationById(trip.destinationID)
+    upcomingTripsSection.innerHTML += `
+    <section class="pending-trips" id="pending-trips">
+      <img class="destination-img" src=${futureDestinations.image} alt=${futureDestinations.alt}>
+      <article class="trip-details">
+        <h5 class="destination-name">${futureDestinations.destination}</h5>
         <p class="trip-status">Status: ${trip.status}</p>
         <p class="trip-date">Date: ${trip.date}</p>
         <p class="trip-travelers">Travelers: ${trip.travelers}</p>
