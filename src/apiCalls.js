@@ -1,6 +1,12 @@
 const getAPIData = (url) => {
   return fetch(url)
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw Promise.reject(response)
+      }
+    })
     .catch((err) => console.log("error", err));
 };
 
