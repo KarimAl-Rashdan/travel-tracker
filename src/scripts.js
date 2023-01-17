@@ -36,12 +36,16 @@ function getData() {
       allDestinationData = response[1].destinations;
       allTripData = response[2].trips;
       createClassInstance(allTravelerData, allDestinationData, allTripData);
-      getRandomTraveler(allTravelerData);
+      
+      // getRandomTraveler(allTravelerData);
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      fetchFailure.classList.remove("hidden")
+    });
   }
   
   //Query Selector Section
+  const dashBoardSection = document.querySelector(".main-container")
   const welcomeSection = document.getElementById("welcome-traveler");
   const totalSpentSection = document.querySelector(".total-spent");
   const destinationOptions = document.getElementById("available-destinations");
@@ -64,11 +68,21 @@ function getData() {
   const pendingTripsSection = document.querySelector(".pending");
   const pastTripsSection = document.querySelector(".past");
   const resetFilterBtn = document.querySelector(".reset-radios");
+  const logInSection = document.querySelector(".login-container")
+  const logInForm = document.querySelector(".log-in-form")
+  const usernameInput = document.getElementById("username")
+  const passwordInput = document.getElementById("password")
+  const logInBtn = document.getElementById("log-in-btn")
+  const signOutBtn = document.getElementById("log-out")
+  const logInError = document.querySelector(".login-error")
+  const fetchFailure = document.getElementById("fetch-failure")
 
 
 
   //Add Event Listener Section
-  window.addEventListener("load", getData);
+  window.addEventListener("load", () => {
+    getData()
+  });
 
   submitBookingButton.addEventListener("click", (event) => {
     createPostObject(event);
@@ -83,12 +97,15 @@ function getData() {
   });
 
   tripsCategories.addEventListener("click", showTripCategories);
-  resetFilterBtn.addEventListener("click", (event) => {
+  resetFilterBtn.addEventListener("click", () => {
     upcomingRadioBtn.checked = false;
     pendingRadioBtn.checked = false;
     pastRadioBtn.checked = false;
     allTripsSection.classList.remove("hidden");
   });
+
+  logInBtn.addEventListener("click", verifyLogIn)
+  signOutBtn.addEventListener("click", showLogIn)
   
   //Functions
   function createClassInstance(dataSet1, dataSet2, dataSet3) {
@@ -100,17 +117,7 @@ function getData() {
     tripRepository = new TripRepository(allTripData);
   }
   
-  function getRandomTraveler(travelerData) {
-    const randomID = Math.floor(Math.random() * travelerData.length);
-    currentTraveler = travelerData[randomID];
-    currentTravelerID = currentTraveler.id;
-    todaysDate = "2020/12/01";
-    welcomeTraveler();
-    getTrips(currentTravelerID);
-    displayAllTrips();
-    displayTotalSpent();
-    showDestinationOptions();
-  }
+  
 
 function welcomeTraveler() {
   welcomeSection.innerText = `Welcome ${currentTraveler.name}!`;
@@ -308,3 +315,46 @@ function displayFutureTrips(date) {
     `;
   });
 }
+
+function verifyLogIn() {
+  const mainName = usernameInput.value.substring(0,8)
+  if(mainName === "traveler" && usernameInput.value.length >= 9 && usernameInput.value.length < 11 && passwordInput.value === "travel") {
+    const allChar = usernameInput.value.split('')
+    console.log("jjjjj", allChar)
+    const filterNum = allChar.filter(character => {
+      return Number(character)
+    })
+    if(allChar[9] === '0') {
+      filterNum.push('0')
+    }
+    const getString = filterNum.join('')
+    const getNum = Number(getString)
+    const travelerObj = travelerRepository.findTraveler(getNum)
+    currentTraveler = travelerObj
+    currentTravelerID = travelerObj.id
+    console.log("currentTraveler", currentTraveler)
+    todaysDate = "2020/12/01";
+    welcomeTraveler()
+    getTrips(currentTravelerID)
+    showDashboard()
+    displayAllTrips()
+    displayTotalSpent()
+    showDestinationOptions()
+    logInForm.reset()
+  } else if(usernameInput.value || passwordInput.value) {
+    logInError.classList.remove("hidden")
+    logInForm.reset()
+  }
+}
+
+function showLogIn() {
+  dashBoardSection.classList.add("hidden")
+  logInSection.classList.remove("hidden")
+  logInError.classList.add("hidden")
+}
+
+function showDashboard() {
+  dashBoardSection.classList.remove("hidden")
+  logInSection.classList.add("hidden")
+}
+
