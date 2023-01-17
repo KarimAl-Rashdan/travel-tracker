@@ -19,6 +19,7 @@ let tripRepository;
 let currentTraveler;
 let currentTravelerID;
 let currentTravelerTrips;
+let todaysDate;
 
 const travelerAPI = "http://localhost:3001/api/v1/travelers";
 const destinationAPI = "http://localhost:3001/api/v1/destinations";
@@ -42,7 +43,6 @@ function getData() {
   
   //Query Selector Section
   const welcomeSection = document.getElementById("welcome-traveler");
-  const allTripsSection = document.getElementById("all-status-trips");
   const totalSpentSection = document.querySelector(".total-spent");
   const destinationOptions = document.getElementById("available-destinations");
   const submitBookingButton = document.getElementById("submit-booking");
@@ -53,9 +53,20 @@ function getData() {
   const estimatedTripCost = document.getElementById("estimated-cost");
   const postSuccessDisplay = document.getElementById("post-success");
   const postFailureDisplay = document.getElementById("post-failure");
-  const bookingForm = document.getElementById("book-trip")
+  const bookingForm = document.getElementById("book-trip");
+  const tripsCategories = document.getElementById("trips-categories");
+  const upcomingRadioBtn = document.getElementById("upcoming-input");
+  const pendingRadioBtn = document.getElementById("pending-input");
+  const pastRadioBtn = document.getElementById("past-input");
+  const allTripsSection = document.getElementById("all-status-trips");
+  const tripTitle = document.querySelector(".trip-title");
+  const upcomingTripsSection = document.querySelector(".upcoming");
+  const pendingTripsSection = document.querySelector(".pending");
+  const pastTripsSection = document.querySelector(".past");
+  const resetFilterBtn = document.querySelector(".reset-radios");
 
-  
+
+
   //Add Event Listener Section
   window.addEventListener("load", getData);
 
@@ -64,11 +75,19 @@ function getData() {
   });
   bookingForm.addEventListener("mouseover", () => {
     if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
-      submitBookingButton.disabled = false
+      submitBookingButton.disabled = false;
       showEstimatedCost();
     } else {
-      submitBookingButton.disabled = true
+      submitBookingButton.disabled = true;
     }
+  });
+
+  tripsCategories.addEventListener("click", showTripCategories);
+  resetFilterBtn.addEventListener("click", (event) => {
+    upcomingRadioBtn.checked = false;
+    pendingRadioBtn.checked = false;
+    pastRadioBtn.checked = false;
+    allTripsSection.classList.remove("hidden");
   });
   
   //Functions
@@ -85,6 +104,7 @@ function getData() {
     const randomID = Math.floor(Math.random() * travelerData.length);
     currentTraveler = travelerData[randomID];
     currentTravelerID = currentTraveler.id;
+    todaysDate = "2020/12/01";
     welcomeTraveler();
     getTrips(currentTravelerID);
     displayAllTrips();
@@ -102,7 +122,8 @@ function getTrips(id) {
 
 function displayAllTrips() {
   allTripsSection.innerHTML= "";
-  tripRepository.specificTripsToUser.forEach(trip => {
+  tripTitle.innerText = "All Trips";
+  currentTravelerTrips.forEach(trip => {
     const destination = destinationRepository.filterDestinationById(trip.destinationID);
     allTripsSection.innerHTML += `
     <section class="trip" id="trip">
@@ -110,6 +131,9 @@ function displayAllTrips() {
       <article class="trip-details">
         <h5 class="destination-name">${destination.destination}</h5>
         <p class="trip-status">Status: ${trip.status}</p>
+        <p class="trip-date">Date: ${trip.date}</p>
+        <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+        <p class="trip-duration">Duration: ${trip.duration}</p>
       </article>
     </section>`;
   });
@@ -143,8 +167,8 @@ function showEstimatedCost() {
     status: "pending", 
     suggestedActivities: [] 
   };
-  estimatedTripCost.innerText = tripRepository.calculateOneTripCost(tripObj, destinationRepository);
-  return tripObj
+  estimatedTripCost.innerText = `Estimated Trip Cost: $${tripRepository.calculateOneTripCost(tripObj, destinationRepository)}`;
+  return tripObj;
 }
 
 function createPostObject(event) {
@@ -152,7 +176,7 @@ function createPostObject(event) {
   if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
     const tripObj = showEstimatedCost()
     postNewTrip(tripObj);
-  } 
+  }
 }
 
 function postNewTrip(tripObject) {
@@ -204,4 +228,83 @@ function clearInputs() {
   showEstimatedCost.innerText = "";
 }
 
+function showTripCategories() {
+  if(upcomingRadioBtn.checked) {
+    tripTitle.innerText = "Upcoming Trips";
+    displayFutureTrips(todaysDate);
+    showSection(upcomingTripsSection, pendingTripsSection, pastTripsSection, allTripsSection);
+  } else if(pendingRadioBtn.checked) {
+    tripTitle.innerText = "Pending Trips";
+    displayPendingTrips();
+    showSection(pendingTripsSection, upcomingTripsSection, pastTripsSection, allTripsSection);
+  } else if(pastRadioBtn.checked) {
+    tripTitle.innerText = "Past Trips";
+    displayPastTrips(todaysDate);
+    showSection(pastTripsSection, upcomingTripsSection, pendingTripsSection, allTripsSection);
+  } 
+}
 
+function showSection(section1, section2, section3, section4) {
+  section1.classList.remove("hidden");
+  section2.classList.add("hidden");
+  section3.classList.add("hidden");
+  section4.classList.add("hidden");
+}
+
+function displayPastTrips(date) {
+  const pastTrips = tripRepository.filterPastTrips(date);
+  pastTrips.forEach(trip => {
+    const pastDestinations = destinationRepository.filterDestinationById(trip.destinationID);
+    pastTripsSection.innerHTML += `
+    <section class="past-trips" id="past-trips">
+      <img class="destination-img" src=${pastDestinations.image} alt=${pastDestinations.alt}>
+      <article class="trip-details">
+        <h5 class="destination-name">${pastDestinations.destination}</h5>
+        <p class="trip-status">Status: ${trip.status}</p>
+        <p class="trip-date">Date: ${trip.date}</p>
+        <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+        <p class="trip-duration">Duration: ${trip.duration}</p>
+      </article>
+    </section>
+    `;
+  });
+  return pastTrips;
+}
+
+function displayPendingTrips() {
+  const pendingTrips = tripRepository.filterPendingTrips();
+  pendingTrips.forEach(trip => {
+    const pendingDestinations = destinationRepository.filterDestinationById(trip.destinationID);
+    pendingTripsSection.innerHTML += `
+    <section class="pending-trips" id="pending-trips">
+      <img class="destination-img" src=${pendingDestinations.image} alt=${pendingDestinations.alt}>
+      <article class="trip-details">
+        <h5 class="destination-name">${pendingDestinations.destination}</h5>
+        <p class="trip-status">Status: ${trip.status}</p>
+        <p class="trip-date">Date: ${trip.date}</p>
+        <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+        <p class="trip-duration">Duration: ${trip.duration}</p>
+      </article>
+    </section>
+    `;
+  });
+}
+
+function displayFutureTrips(date) {
+  const futureTrips = tripRepository.filterFutureTrips(date);
+  futureTrips.forEach(trip => {
+    const futureDestinations = destinationRepository.filterDestinationById(trip.destinationID);
+    upcomingTripsSection.innerHTML += `
+    <section class="future-trips" id="future-trips">
+      <img class="destination-img" src=${futureDestinations.image} alt=${futureDestinations.alt}>
+      <article class="trip-details">
+        <h5 class="destination-name">${futureDestinations.destination}</h5>
+        <p class="trip-status">Status: ${trip.status}</p>
+        <p class="trip-date">Date: ${trip.date}</p>
+        <p class="trip-travelers">Travelers: ${trip.travelers}</p>
+        <p class="trip-duration">Duration: ${trip.duration}</p>
+      </article>
+    </section>
+    `;
+  });
+}
