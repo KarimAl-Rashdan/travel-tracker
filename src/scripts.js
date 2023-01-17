@@ -38,8 +38,6 @@ function getData() {
       allDestinationData = response[1].destinations;
       allTripData = response[2].trips;
       createClassInstance(allTravelerData, allDestinationData, allTripData);
-      
-      // getRandomTraveler(allTravelerData);
     })
     .catch((error) => {
       fetchFailure.classList.remove("hidden")
