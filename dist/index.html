@@ -13,7 +13,8 @@
       <label for="username">Username</label>
       <input class="log-in-input" id="username" type="text" name="username" value="" required>
       <label for="password">Password</label>
-      <input class ="log-in-input" id="password" type="password" name="password" value="" required>
+      <input class="log-in-input" id="password" type="password" name="password" value="" required>
+      <p class="login-error hidden">Sorry, please enter a valid username and password</p>
       <button class="log-in-btn" type="button" name="button" id="log-in-btn">Log In</button>
     </form>
   </section>
@@ -21,7 +22,7 @@
     <nav class="nav-bar">
       <img src="./images/turing-logo.png" alt="turing logo">
       <h1 id="welcome-traveler">Welcome TravelerName!</h1>
-      <button class="log-out">Log Out</button>
+      <button class="log-out" id="log-out">Log Out</button>
     </nav>
     <fieldset class="trips-categories" id="trips-categories">
       <legend class="hidden">Filter Trips</legend>
