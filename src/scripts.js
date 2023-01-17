@@ -320,7 +320,6 @@ function verifyLogIn() {
   const mainName = usernameInput.value.substring(0,8)
   if(mainName === "traveler" && usernameInput.value.length >= 9 && usernameInput.value.length < 11 && passwordInput.value === "travel") {
     const allChar = usernameInput.value.split('')
-    console.log("jjjjj", allChar)
     const filterNum = allChar.filter(character => {
       return Number(character)
     })
@@ -332,7 +331,6 @@ function verifyLogIn() {
     const travelerObj = travelerRepository.findTraveler(getNum)
     currentTraveler = travelerObj
     currentTravelerID = travelerObj.id
-    console.log("currentTraveler", currentTraveler)
     todaysDate = "2020/12/01";
     welcomeTraveler()
     getTrips(currentTravelerID)

@@ -4,6 +4,7 @@
 Travel Tracker is a travel booking application. The app allows the user to view their past, upcoming, and pending trips. The user can also book a new trip and see the dashboard update to reflect their new trips. This app runs in the web browser.
 
 ![FitLit Gif](https://media.giphy.com/media/mvRT91AYuHUzd3oBvE/giphy.gif)
+
 ### `How to Use the App:`
 
 - Clone down this repo to your computer: https://github.com/turingschool-examples/travel-tracker-api
