@@ -64,6 +64,11 @@ function getData() {
   const pendingTripsSection = document.querySelector(".pending");
   const pastTripsSection = document.querySelector(".past");
   const resetFilterBtn = document.querySelector(".reset-radios");
+  const logInSection = document.querySelector(".login-container")
+  const logInForm = document.querySelector(".log-in-form")
+  const usernameInput = document.getElementById("username")
+  const passwordInput = document.getElementById("password")
+  const logInBtn = document.getElementById("log-in-btn")
 
 
 
