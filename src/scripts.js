@@ -53,17 +53,17 @@ function getData() {
   const estimatedTripCost = document.getElementById("estimated-cost");
   const postSuccessDisplay = document.getElementById("post-success");
   const postFailureDisplay = document.getElementById("post-failure");
-  const bookingForm = document.getElementById("book-trip")
-  const tripsCategories = document.getElementById("trips-categories")
-  const upcomingRadioBtn = document.getElementById("upcoming-input")
-  const pendingRadioBtn = document.getElementById("pending-input")
-  const pastRadioBtn = document.getElementById("past-input")
+  const bookingForm = document.getElementById("book-trip");
+  const tripsCategories = document.getElementById("trips-categories");
+  const upcomingRadioBtn = document.getElementById("upcoming-input");
+  const pendingRadioBtn = document.getElementById("pending-input");
+  const pastRadioBtn = document.getElementById("past-input");
   const allTripsSection = document.getElementById("all-status-trips");
-  const tripTitle = document.querySelector(".trip-title")
-  const upcomingTripsSection = document.querySelector(".upcoming")
-  const pendingTripsSection = document.querySelector(".pending")
-  const pastTripsSection = document.querySelector(".past")
-  const resetFilterBtn = document.querySelector(".reset-radios")
+  const tripTitle = document.querySelector(".trip-title");
+  const upcomingTripsSection = document.querySelector(".upcoming");
+  const pendingTripsSection = document.querySelector(".pending");
+  const pastTripsSection = document.querySelector(".past");
+  const resetFilterBtn = document.querySelector(".reset-radios");
 
 
 
@@ -75,21 +75,20 @@ function getData() {
   });
   bookingForm.addEventListener("mouseover", () => {
     if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
-      submitBookingButton.disabled = false
+      submitBookingButton.disabled = false;
       showEstimatedCost();
     } else {
-      submitBookingButton.disabled = true
+      submitBookingButton.disabled = true;
     }
   });
 
-  tripsCategories.addEventListener("click", showTripCategories)
+  tripsCategories.addEventListener("click", showTripCategories);
   resetFilterBtn.addEventListener("click", (event) => {
     upcomingRadioBtn.checked = false;
     pendingRadioBtn.checked = false;
     pastRadioBtn.checked = false;
-    allTripsSection.classList.remove("hidden")
-    // displayAllTrips(event)
-  })
+    allTripsSection.classList.remove("hidden");
+  });
   
   //Functions
   function createClassInstance(dataSet1, dataSet2, dataSet3) {
@@ -105,7 +104,7 @@ function getData() {
     const randomID = Math.floor(Math.random() * travelerData.length);
     currentTraveler = travelerData[randomID];
     currentTravelerID = currentTraveler.id;
-    todaysDate = "2020/12/01"
+    todaysDate = "2020/12/01";
     welcomeTraveler();
     getTrips(currentTravelerID);
     displayAllTrips();
@@ -122,9 +121,8 @@ function getTrips(id) {
 }
 
 function displayAllTrips() {
-  console.log("all users trips", tripRepository.specificTripsToUser)
   allTripsSection.innerHTML= "";
-  tripTitle.innerText = "All Trips"
+  tripTitle.innerText = "All Trips";
   tripRepository.specificTripsToUser.forEach(trip => {
     const destination = destinationRepository.filterDestinationById(trip.destinationID);
     allTripsSection.innerHTML += `
@@ -170,7 +168,7 @@ function showEstimatedCost() {
     suggestedActivities: [] 
   };
   estimatedTripCost.innerText = tripRepository.calculateOneTripCost(tripObj, destinationRepository);
-  return tripObj
+  return tripObj;
 }
 
 function createPostObject(event) {
@@ -178,7 +176,7 @@ function createPostObject(event) {
   if(dateInput.value && durationInput.value && travelerInput.value && destinationInput.value) {
     const tripObj = showEstimatedCost()
     postNewTrip(tripObj);
-  } 
+  }
 }
 
 function postNewTrip(tripObject) {
@@ -231,37 +229,32 @@ function clearInputs() {
 }
 
 function showTripCategories() {
-  console.log("hey youre clicking my assskk")
   if(upcomingRadioBtn.checked) {
-    console.log("upcoming")
-    tripTitle.innerText = "Upcoming Trips"
-    displayFutureTrips(todaysDate)
-    showSection(upcomingTripsSection, pendingTripsSection, pastTripsSection, allTripsSection)
-    console.log("oh im checked hyaaaa")
+    tripTitle.innerText = "Upcoming Trips";
+    displayFutureTrips(todaysDate);
+    showSection(upcomingTripsSection, pendingTripsSection, pastTripsSection, allTripsSection);
   } else if(pendingRadioBtn.checked) {
-    console.log("pending")
-    tripTitle.innerText = "Pending Trips"
-    displayPendingTrips()
-    showSection(pendingTripsSection, upcomingTripsSection, pastTripsSection, allTripsSection)
+    tripTitle.innerText = "Pending Trips";
+    displayPendingTrips();
+    showSection(pendingTripsSection, upcomingTripsSection, pastTripsSection, allTripsSection);
   } else if(pastRadioBtn.checked) {
-    console.log("past")
-    tripTitle.innerText = "Past Trips"
-    displayPastTrips(todaysDate)
-    showSection(pastTripsSection, upcomingTripsSection, pendingTripsSection, allTripsSection)
+    tripTitle.innerText = "Past Trips";
+    displayPastTrips(todaysDate);
+    showSection(pastTripsSection, upcomingTripsSection, pendingTripsSection, allTripsSection);
   } 
 }
 
 function showSection(section1, section2, section3, section4) {
-  section1.classList.remove("hidden")
-  section2.classList.add("hidden")
-  section3.classList.add("hidden")
-  section4.classList.add("hidden")
+  section1.classList.remove("hidden");
+  section2.classList.add("hidden");
+  section3.classList.add("hidden");
+  section4.classList.add("hidden");
 }
 
 function displayPastTrips(date) {
-  const pastTrips = tripRepository.filterPastTrips(date)
+  const pastTrips = tripRepository.filterPastTrips(date);
   pastTrips.forEach(trip => {
-    const pastDestinations = destinationRepository.filterDestinationById(trip.destinationID)
+    const pastDestinations = destinationRepository.filterDestinationById(trip.destinationID);
     pastTripsSection.innerHTML += `
     <section class="past-trips" id="past-trips">
       <img class="destination-img" src=${pastDestinations.image} alt=${pastDestinations.alt}>
@@ -273,16 +266,15 @@ function displayPastTrips(date) {
         <p class="trip-duration">Duration: ${trip.duration}</p>
       </article>
     </section>
-    `
-  })
-  console.log("past trips", pastTrips)
-  return pastTrips
+    `;
+  });
+  return pastTrips;
 }
 
 function displayPendingTrips() {
-  const pendingTrips = tripRepository.filterPendingTrips()
+  const pendingTrips = tripRepository.filterPendingTrips();
   pendingTrips.forEach(trip => {
-    const pendingDestinations = destinationRepository.filterDestinationById(trip.destinationID)
+    const pendingDestinations = destinationRepository.filterDestinationById(trip.destinationID);
     pendingTripsSection.innerHTML += `
     <section class="pending-trips" id="pending-trips">
       <img class="destination-img" src=${pendingDestinations.image} alt=${pendingDestinations.alt}>
@@ -294,14 +286,14 @@ function displayPendingTrips() {
         <p class="trip-duration">Duration: ${trip.duration}</p>
       </article>
     </section>
-    `
-  })
+    `;
+  });
 }
 
 function displayFutureTrips(date) {
-  const futureTrips = tripRepository.filterFutureTrips(date)
+  const futureTrips = tripRepository.filterFutureTrips(date);
   futureTrips.forEach(trip => {
-    const futureDestinations = destinationRepository.filterDestinationById(trip.destinationID)
+    const futureDestinations = destinationRepository.filterDestinationById(trip.destinationID);
     upcomingTripsSection.innerHTML += `
     <section class="future-trips" id="future-trips">
       <img class="destination-img" src=${futureDestinations.image} alt=${futureDestinations.alt}>
@@ -313,6 +305,6 @@ function displayFutureTrips(date) {
         <p class="trip-duration">Duration: ${trip.duration}</p>
       </article>
     </section>
-    `
-  })
+    `;
+  });
 }
