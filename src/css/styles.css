@@ -48,7 +48,7 @@ main {
 }
 
 .all-status-trips,
-.active,
+.upcoming,
 .pending,
 .past {
   display: flex;
@@ -57,7 +57,7 @@ main {
   height:70vh;
   padding:15px;
 }
-.trip > img{
+.destination-img{
   width:100%;
 }
 .trip-details > h5,

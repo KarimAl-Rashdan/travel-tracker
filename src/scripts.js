@@ -83,7 +83,13 @@ function getData() {
   });
 
   tripsCategories.addEventListener("click", showTripCategories)
-  resetFilterBtn.addEventListener("click", displayAllTrips)
+  resetFilterBtn.addEventListener("click", (event) => {
+    upcomingRadioBtn.checked = false;
+    pendingRadioBtn.checked = false;
+    pastRadioBtn.checked = false;
+    allTripsSection.classList.remove("hidden")
+    // displayAllTrips(event)
+  })
   
   //Functions
   function createClassInstance(dataSet1, dataSet2, dataSet3) {
@@ -116,6 +122,7 @@ function getTrips(id) {
 }
 
 function displayAllTrips() {
+  console.log("all users trips", tripRepository.specificTripsToUser)
   allTripsSection.innerHTML= "";
   tripTitle.innerText = "All Trips"
   tripRepository.specificTripsToUser.forEach(trip => {
@@ -296,7 +303,7 @@ function displayFutureTrips(date) {
   futureTrips.forEach(trip => {
     const futureDestinations = destinationRepository.filterDestinationById(trip.destinationID)
     upcomingTripsSection.innerHTML += `
-    <section class="pending-trips" id="pending-trips">
+    <section class="future-trips" id="future-trips">
       <img class="destination-img" src=${futureDestinations.image} alt=${futureDestinations.alt}>
       <article class="trip-details">
         <h5 class="destination-name">${futureDestinations.destination}</h5>
