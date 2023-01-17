@@ -123,7 +123,7 @@ function getTrips(id) {
 function displayAllTrips() {
   allTripsSection.innerHTML= "";
   tripTitle.innerText = "All Trips";
-  tripRepository.specificTripsToUser.forEach(trip => {
+  currentTravelerTrips.forEach(trip => {
     const destination = destinationRepository.filterDestinationById(trip.destinationID);
     allTripsSection.innerHTML += `
     <section class="trip" id="trip">
