@@ -195,7 +195,7 @@ function postNewTrip(tripObject) {
     body: JSON.stringify(tripObject)
   })
   .then((response) => {
-    if(!response.ok) {
+    if (!response.ok) {
       throw new Error();
     } 
     return response.json();
