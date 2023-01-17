@@ -1,5 +1,18 @@
 body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background-image: url("../images/dashboard.png");
+  height:100vh;
+  width:100%;
+  background-position: center;
+  margin:0px
+}
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width:100%;
+  background-image: url("../images/login-image.png");
+  background-position: center;
 }
 .log-in-form{
   display: flex;
@@ -7,7 +20,9 @@ body {
   align-items: center;
   height:50vh;
   justify-content: center;
-  border:1px solid white;
+  width:30%;
+  background: white;
+  border-radius: 10%;
 }
 nav {
   display: flex;
@@ -15,7 +30,16 @@ nav {
   height: 100px;
   justify-content: space-between;
   align-items: center;
-  border:1px solid blue;
+  padding: 10px;
+}
+h1 {
+  font-size: xx-large;
+}
+h2 {
+  font-size: large;
+}
+nav > img {
+  border-radius: 50%;
 }
 main {
   display: flex;
@@ -24,27 +48,27 @@ main {
 .trips-categories {
   display: flex;
   flex-direction: row;
-  border:1px solid red;
   align-items: baseline;
+  background-color: bisque;
+  border:2px solid black;
 }
 .dashBoard-container {
   display: flex;
   flex-direction: row;
   height: 78vh;
-  border: 1px solid yellow;
   width:100%;
 }
 .trip-view {
   width:80%;
-  border:1px solid black;
 }
 .book-trip {
   display: flex;
   flex-direction: column;
   width: 20%;
-  border: 1px solid green;
+  border: 2px solid rgb(237, 203, 31);
   justify-content: space-evenly;
   align-items: center;
+  background-color: blanchedalmond;
 }
 
 .all-status-trips,
@@ -74,14 +98,31 @@ img {
   height:105px;
 }
 .trip {
-  width: 20%;
-  height: 45vh;
-  border:1px solid  white;
+  width: 15%;
+  height: 30vh;
+  margin: 5px;
+  background: white;
+  padding: 12px;
 }
 header {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  background-color: beige;
+  width:75%;
+}
+.log-in-form > input {
+  margin:5px;
+}
+
+.log-out {
+  padding:5px;
+}
+.log-out:hover,
+.log-in-btn:hover,
+.reset-radios:hover {
+  background-color: rgb(0, 153, 255);
+  border: 2px solid black;
 }
 .hidden {
   display: none;
