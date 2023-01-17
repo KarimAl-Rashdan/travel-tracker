@@ -1,3 +1,52 @@
+# Travel Tracker
+
+
+Travel Tracker is a travel booking application. The app allows the user to view their past, upcoming, and pending trips. The user can also book a new trip and see the dashboard update to reflect their new trips. This app runs in the web browser.
+
+![FitLit Gif](https://media.giphy.com/media/wON4X2bFzr4gTyxKyV/giphy.gif)
+### `How to Use the App:`
+
+- Clone down this repo to your computer: https://github.com/turingschool-examples/travel-tracker-api
+- Run `npm install` to install all required dependencies
+- Run `npm start` to start the local server in the background
+- Clone down this repo to your computer
+- Access the root folder in your Terminal
+- Run `npm install` to install all required dependencies
+- Run `npm start` to start local server  
+- Paste `http://localhost:8080/` into your web browser to view the application 
+
+### `Technologies and Skills`
+
+Travel Tracker uses...
+* HTML and CSS.
+* Old School Vanilla JavaScript (OSVJS).
+* [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for unit testing. 
+
+## `Architecture`
+Travel Tracker currently uses API data found in the first linked repo. Most of the functionality is housed in our `src` folder, which includes all of our classes as well as our JS logic, HTML, and CSS. We also have a testing suite, housed in our `test` folder.
+
+
+### `Contributors:`
+1. Karim Al-Rashdan
+    * [GitHub](https://github.com/KarimAl-Rashdan)
+    * [LinkedIn](https://www.linkedin.com/in/karimal-rashdan/)
+
+
+## `Wins:`
+- Able to implement Fetch API functionality and successfully import and post data from API.
+- Followed Test-driven development principles.
+- Achieved accessibility goals
+- Acheived user login
+
+## `Future Iterations:`
+
+- Implement traveler agent login and dashboard
+- User can view a countdown to thier next trip
+
+
+
+
+
 # Webpack Starter Kit
 
 ## Clone This Repo
@@ -80,20 +129,6 @@ The test results will output to the terminal.
 
 ---
 
-## Linting Your Code
 
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
 
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory.
 
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
