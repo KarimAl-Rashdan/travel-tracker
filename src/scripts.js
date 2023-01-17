@@ -167,7 +167,7 @@ function showEstimatedCost() {
     status: "pending", 
     suggestedActivities: [] 
   };
-  estimatedTripCost.innerText = tripRepository.calculateOneTripCost(tripObj, destinationRepository);
+  estimatedTripCost.innerText = `Estimated Trip Cost: $${tripRepository.calculateOneTripCost(tripObj, destinationRepository)}`;
   return tripObj;
 }
 
