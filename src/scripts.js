@@ -1,6 +1,8 @@
 //Import Data Section
 import './css/styles.css';
-import './images/turing-logo.png';
+import '../src/images/traveltracker-logo.png';
+import '../src/images/login-image.png'
+import '../src/images/dashboard.png'
 import getAPIData from "./apiCalls";
 import Traveler from "./Traveler";
 import TravelerRepository from "./TravelerRepository";
@@ -344,6 +346,8 @@ function verifyLogIn() {
   } else if(usernameInput.value || passwordInput.value) {
     logInError.classList.remove("hidden")
     logInForm.reset()
+  } else {
+    logInError.classList.remove("hidden")
   }
 }
 
