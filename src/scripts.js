@@ -39,7 +39,9 @@ function getData() {
       
       // getRandomTraveler(allTravelerData);
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      fetchFailure.classList.remove("hidden")
+    });
   }
   
   //Query Selector Section
@@ -73,12 +75,12 @@ function getData() {
   const logInBtn = document.getElementById("log-in-btn")
   const signOutBtn = document.getElementById("log-out")
   const logInError = document.querySelector(".login-error")
+  const fetchFailure = document.getElementById("fetch-failure")
 
 
 
   //Add Event Listener Section
   window.addEventListener("load", () => {
-    // verifyLogIn()
     getData()
   });
 
@@ -95,7 +97,7 @@ function getData() {
   });
 
   tripsCategories.addEventListener("click", showTripCategories);
-  resetFilterBtn.addEventListener("click", (event) => {
+  resetFilterBtn.addEventListener("click", () => {
     upcomingRadioBtn.checked = false;
     pendingRadioBtn.checked = false;
     pastRadioBtn.checked = false;
@@ -356,19 +358,3 @@ function showDashboard() {
   logInSection.classList.add("hidden")
 }
 
-/*logInSection
-logInForm
-usernameInput
-passwordInput
-logInBtn*/
-// function getRandomTraveler(travelerData) {
-//   const randomID = Math.floor(Math.random() * travelerData.length);
-//   currentTraveler = travelerData[randomID];
-//   currentTravelerID = currentTraveler.id;
-//   todaysDate = "2020/12/01";
-//   welcomeTraveler();
-//   getTrips(currentTravelerID);
-//   displayAllTrips();
-//   displayTotalSpent();
-//   showDestinationOptions();
-// }
